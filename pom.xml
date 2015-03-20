@@ -16,7 +16,7 @@
 		<maven-surefire.version>2.17</maven-surefire.version>
 		<maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
 		<org.testng.version>6.8.8</org.testng.version>
-		<biit-form-submitted.version>0.0.1</biit-form-submitted.version>
+		<biit-form-submitted.version>[0.0,0.1)</biit-form-submitted.version>
 	</properties>
 
 	<distributionManagement>
