@@ -1,0 +1,157 @@
+package com.biit.drools.form;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import com.biit.form.submitted.ISubmittedFormElement;
+import com.biit.form.submitted.ISubmittedObject;
+import com.biit.form.submitted.implementation.SubmittedQuestion;
+
+public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmittedFormElement {
+
+	// Date format based on the input received by the Orbeon forms
+	private static final String DATE_FORMAT = "yyyy-MM-dd";
+
+	public DroolsSubmittedQuestion(String tag) {
+		super(tag);
+	}
+
+	public Object getAnswer(String answerFormat) {
+		if (answerFormat == null) {
+			return null;
+		}
+		if (answerFormat.isEmpty()) {
+			Object parsedValue = null;
+			try {
+				parsedValue = Double.parseDouble(getAnswer());
+			} catch (Exception e) {
+				try {
+					parsedValue = new SimpleDateFormat(DATE_FORMAT).parse(getAnswer());
+				} catch (Exception e1) {
+					parsedValue = getAnswer();
+				}
+			}
+			return parsedValue;
+		}
+
+		Object parsedValue = null;
+		switch (answerFormat) {
+		case "NUMBER":
+			if (getAnswer() != null && !getAnswer().isEmpty()) {
+				try {
+					return Double.parseDouble(getAnswer());
+				} catch (Exception e) {
+					return 0.0;
+				}
+			} else {
+				return 0.0;
+			}
+
+		case "POSTAL_CODE":
+			return getAnswer().toUpperCase();
+		case "TEXT":
+			return getAnswer();
+
+		case "DATE":
+			if (getAnswer() != null && !getAnswer().isEmpty()) {
+				try {
+					return new SimpleDateFormat(DATE_FORMAT).parse(getAnswer());
+
+				} catch (ParseException e) {
+					// Default, create tomorrow's date
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(new Date());
+					cal.add(Calendar.DAY_OF_YEAR, 1);
+					Date tomorrow = cal.getTime();
+					return new SimpleDateFormat(DATE_FORMAT).format(tomorrow);
+				}
+			} else {
+				// Default, create tomorrow's date
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(new Date());
+				cal.add(Calendar.DAY_OF_YEAR, 1);
+				Date tomorrow = cal.getTime();
+				return new SimpleDateFormat(DATE_FORMAT).format(tomorrow);
+			}
+		}
+		return parsedValue;
+	}
+
+	@Override
+	public boolean isVariableDefined(String varName) {
+		return isVariableDefined(this, varName);
+	}
+
+	@Override
+	public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
+		return ((ISubmittedFormElement) getParent()).isVariableDefined(submittedFormTreeObject, varName);
+	}
+
+	public boolean isScoreNotSet(String varName) {
+		return !isVariableDefined(varName);
+	}
+
+	@Override
+	public Object getVariableValue(String varName) {
+		return getVariableValue(this, varName);
+	}
+
+	@Override
+	public Object getVariableValue(Class<?> type, String varName) {
+		List<ISubmittedObject> childs = getChildren(type);
+
+		if (childs != null && !childs.isEmpty()) {
+			return getVariableValue(childs.get(0), varName);
+		}
+		return null;
+	}
+
+	@Override
+	public Object getVariableValue(Class<?> type, String treeObjectName, String varName) {
+		ISubmittedObject child = getChild(type, treeObjectName);
+
+		if (child != null) {
+			return getVariableValue(child, varName);
+		}
+		return null;
+	}
+
+	@Override
+	public Object getVariableValue(Object submmitedFormObject, String varName) {
+		return ((ISubmittedFormElement) this.getParent()).getVariableValue(submmitedFormObject, varName);
+	}
+
+	@Override
+	public void setVariableValue(String varName, Object value) {
+		setVariableValue(this, varName, value);
+	}
+
+	@Override
+	public void setVariableValue(Object submmitedFormObject, String varName, Object value) {
+		((ISubmittedFormElement) getParent()).setVariableValue(submmitedFormObject, varName, value);
+	}
+
+	@Override
+	public String generateXML(String tabs) {
+		return tabs + "<" + getTag() + " type=\"" + this.getClass().getSimpleName() + "\"" + ">" + getAnswer() + "</"
+				+ getTag() + ">\n";
+	}
+
+	@Override
+	public String getName() {
+		return getTag();
+	}
+
+	@Override
+	public String getOriginalValue() {
+		return getAnswer();
+	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+}

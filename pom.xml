@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.biit</groupId>
+	<artifactId>form-structure-drools</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+	<name>Form Structure Drools Engine</name>
+	<description>Basic Structure for use with BiiT Drools Form Rules</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.jdk.version>7</java.jdk.version>
+		<maven-surefire.version>2.17</maven-surefire.version>
+		<maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+		<org.testng.version>6.8.8</org.testng.version>
+		<biit-form-submitted.version>0.0.1</biit-form-submitted.version>
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>biit-releases</name>
+			<url>https://dev.biit-solutions.com:8443/mavenartifactory/ext-release-local</url>
+		</repository>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.biit</groupId>
+			<artifactId>form-structure-submitted</artifactId>
+			<version>${biit-form-submitted.version}</version>
+		</dependency>
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${org.testng.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire.version}</version>
+				<configuration>
+					<useFile>false</useFile>
+					<trimStackTrace>false</trimStackTrace>
+					<suiteXmlFiles>
+						<suiteXmlFile>src/test/config/testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.jdk.version}</source>
+					<target>${java.jdk.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
