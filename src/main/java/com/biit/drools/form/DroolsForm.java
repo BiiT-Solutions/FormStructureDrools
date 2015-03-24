@@ -14,115 +14,115 @@ import com.biit.form.submitted.implementation.SubmittedForm;
  */
 public class DroolsForm implements ISubmittedForm {
 
-	private ISubmittedForm submittedform;
+	private ISubmittedForm droolsSubmittedform;
 
-	public DroolsForm(ISubmittedForm submittedForm) {
-		this.submittedform = submittedForm;
+	public DroolsForm(ISubmittedForm droolsSubmittedform) {
+		this.droolsSubmittedform = droolsSubmittedform;
 	}
 
-	public ISubmittedForm getSubmittedForm() {
-		return submittedform;
+	public ISubmittedForm getDroolsSubmittedForm() {
+		return droolsSubmittedform;
 	}
 
 	public ISubmittedQuestion getQuestion(String categoryName, String questionName) {
-		return (ISubmittedQuestion) submittedform.getChild(ISubmittedCategory.class, categoryName)
+		return (ISubmittedQuestion) droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName)
 				.getChild(ISubmittedQuestion.class, questionName);
 	}
 
 	@Override
 	public String getName() {
-		return submittedform.getName();
+		return droolsSubmittedform.getName();
 	}
 
 	public String getApplicationName() {
-		return submittedform.getApplicationName();
+		return droolsSubmittedform.getApplicationName();
 	}
 
 	public String getId() {
-		return submittedform.getId();
+		return droolsSubmittedform.getId();
 	}
 
-	public void setSubmittedForm(SubmittedForm submittedForm) {
-		this.submittedform = submittedForm;
+	public void setDroolsSubmittedForm(SubmittedForm droolsSubmittedform) {
+		this.droolsSubmittedform = droolsSubmittedform;
 	}
 
 	@Override
 	public String getTag() {
-		return getSubmittedForm().getTag();
+		return getDroolsSubmittedForm().getTag();
 	}
 
 	@Override
 	public void setTag(String tag) {
-		getSubmittedForm().setTag(tag);
+		getDroolsSubmittedForm().setTag(tag);
 	}
 
 	@Override
 	public String getText() {
-		return getSubmittedForm().getText();
+		return getDroolsSubmittedForm().getText();
 	}
 
 	@Override
 	public void setText(String text) {
-		getSubmittedForm().setText(text);
+		getDroolsSubmittedForm().setText(text);
 	}
 
 	@Override
 	public ISubmittedObject getParent() {
-		return getSubmittedForm().getParent();
+		return getDroolsSubmittedForm().getParent();
 	}
 
 	@Override
 	public void setParent(ISubmittedObject parent) {
-		getSubmittedForm().setParent(parent);
+		getDroolsSubmittedForm().setParent(parent);
 	}
 
 	@Override
 	public void addChild(ISubmittedObject child) {
-		getSubmittedForm().addChild(child);
+		getDroolsSubmittedForm().addChild(child);
 	}
 
 	@Override
 	public List<ISubmittedObject> getChildren() {
-		return getSubmittedForm().getChildren();
+		return getDroolsSubmittedForm().getChildren();
 	}
 
 	@Override
 	public void setChildren(List<ISubmittedObject> children) {
-		getSubmittedForm().setChildren(children);
+		getDroolsSubmittedForm().setChildren(children);
 	}
 
 	@Override
 	public ISubmittedObject getChild(Class<?> type, String tag) {
-		return getSubmittedForm().getChild(type, tag);
+		return getDroolsSubmittedForm().getChild(type, tag);
 	}
 
 	@Override
 	public List<ISubmittedObject> getChildren(Class<?> type) {
-		return getSubmittedForm().getChildren(type);
+		return getDroolsSubmittedForm().getChildren(type);
 	}
 
 	@Override
 	public String toString() {
-		return getSubmittedForm().toString();
+		return getDroolsSubmittedForm().toString();
 	}
 
 	@Override
 	public String getPathName() {
-		return submittedform.getPathName();
+		return droolsSubmittedform.getPathName();
 	}
 
 	@Override
 	public Integer getIndex(ISubmittedObject child) {
-		return submittedform.getIndex(child);
+		return droolsSubmittedform.getIndex(child);
 	}
 
 	@Override
 	public int compareTo(ISubmittedObject arg0) {
-		return submittedform.compareTo(arg0);
+		return droolsSubmittedform.compareTo(arg0);
 	}
 
 	@Override
 	public int getLevel() {
-		return submittedform.getLevel();
+		return droolsSubmittedform.getLevel();
 	}
 }
