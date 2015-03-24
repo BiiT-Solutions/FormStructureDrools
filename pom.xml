@@ -5,10 +5,29 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.biit</groupId>
 	<artifactId>form-structure-drools</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Form Structure Drools Engine</name>
 	<description>Basic Structure for use with BiiT Drools Form Rules</description>
+
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>biit-releases</name>
+			<url>https://dev.biit-solutions.com:8443/mavenartifactory/ext-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>libs-snapshot</name>
+			<url>https://dev.biit-solutions.com:8443/mavenartifactory/libs-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<scm>
+		<connection>scm:git:dev.biit-solutions.com:FormStructureDrools.git</connection>
+		<developerConnection>scm:git:dev.biit-solutions.com:FormStructureDrools.git</developerConnection>
+		<tag>form-structure-drools</tag>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,15 +36,11 @@
 		<maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
 		<org.testng.version>6.8.8</org.testng.version>
 		<biit-form-submitted.version>[0.0,0.1)</biit-form-submitted.version>
+		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+		<maven-release-plugin.version>2.5.1</maven-release-plugin.version>
+		<maven-scm-provider-gitexe.version>1.9.2</maven-scm-provider-gitexe.version>
+		<project.scm.id>git</project.scm.id>
 	</properties>
-
-	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>biit-releases</name>
-			<url>https://dev.biit-solutions.com:8443/mavenartifactory/ext-release-local</url>
-		</repository>
-	</distributionManagement>
 
 	<dependencies>
 		<dependency>
@@ -62,6 +77,28 @@
 				<configuration>
 					<source>${java.jdk.version}</source>
 					<target>${java.jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>${maven-scm-provider-gitexe.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<checkModificationExcludes>
+						<checkModificationExclude>pom.xml</checkModificationExclude>
+					</checkModificationExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
