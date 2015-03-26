@@ -126,4 +126,14 @@ public class DroolsForm implements ISubmittedForm {
 	public int getLevel() {
 		return droolsSubmittedform.getLevel();
 	}
+
+	@Override
+	public ISubmittedObject getChild(List<String> subList) {
+		return getDroolsSubmittedForm().getChild(subList);
+	}
+
+	@Override
+	public ISubmittedObject getChild(String pathstring) {
+		return getDroolsSubmittedForm().getChild(pathstring);
+	}
 }
