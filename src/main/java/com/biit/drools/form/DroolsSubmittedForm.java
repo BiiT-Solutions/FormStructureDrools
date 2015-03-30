@@ -20,6 +20,9 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 	// TreeObject -> VarName --> ValuegetVariableScope
 	private HashMap<Object, HashMap<String, Object>> formVariables;
 
+	public DroolsSubmittedForm() {
+	}
+
 	public DroolsSubmittedForm(String applicationName, String formName) {
 		super(applicationName, formName);
 	}
@@ -124,9 +127,10 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		return this;
 	}
 
-	public ISubmittedQuestion getQuestion(String categoryName, String questionName) throws QuestionDoesNotExistException,
-			CategoryDoesNotExistException {
-		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class, questionName);
+	public ISubmittedQuestion getQuestion(String categoryName, String questionName)
+			throws QuestionDoesNotExistException, CategoryDoesNotExistException {
+		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class,
+				questionName);
 	}
 
 	@Override
