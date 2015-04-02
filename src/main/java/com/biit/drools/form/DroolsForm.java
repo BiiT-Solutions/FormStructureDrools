@@ -16,9 +16,21 @@ import com.biit.form.submitted.implementation.SubmittedForm;
 public class DroolsForm implements ISubmittedForm {
 
 	private ISubmittedForm droolsSubmittedform;
+	private final String label;
+	private final String version;
 
 	public DroolsForm(ISubmittedForm droolsSubmittedform) {
 		this.droolsSubmittedform = droolsSubmittedform;
+		this.label = droolsSubmittedform.getName();
+		this.version = droolsSubmittedform.getVersion();
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public String getVersion() {
+		return version;
 	}
 
 	public ISubmittedForm getDroolsSubmittedForm() {

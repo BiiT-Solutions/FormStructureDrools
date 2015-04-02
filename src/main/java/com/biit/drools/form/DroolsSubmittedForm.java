@@ -20,12 +20,12 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 	// TreeObject -> VarName --> ValuegetVariableScope
 	private HashMap<Object, HashMap<String, Object>> formVariables;
 
-	public DroolsSubmittedForm(String applicationName, String formName) {
-		super(applicationName, formName);
+	public DroolsSubmittedForm(String applicationName, String formName, String formVersion) {
+		super(applicationName, formName, formVersion);
 	}
 
-	public DroolsSubmittedForm(String formName) {
-		super("", formName);
+	public DroolsSubmittedForm(String formName, String formVersion) {
+		super("", formName, formVersion);
 	}
 
 	@Override
