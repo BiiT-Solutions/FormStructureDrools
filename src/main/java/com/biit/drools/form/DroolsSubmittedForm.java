@@ -124,9 +124,10 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		return this;
 	}
 
-	public ISubmittedQuestion getQuestion(String categoryName, String questionName) throws QuestionDoesNotExistException,
-			CategoryDoesNotExistException {
-		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class, questionName);
+	public ISubmittedQuestion getQuestion(String categoryName, String questionName)
+			throws QuestionDoesNotExistException, CategoryDoesNotExistException {
+		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class,
+				questionName);
 	}
 
 	@Override
