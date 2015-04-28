@@ -136,19 +136,19 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 	public String generateXML(String tabs) {
 		String xmlFile = "<" + this.getClass().getSimpleName() + " label=\"" + getName() + "\"" + ">\n";
 		// Generate variables value
-		xmlFile += "\t<variables>";
+		xmlFile += "\t<variables>\n";
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += "\t\t<" + child.getKey() + ">" + child.getValue().toString() + "</" + child.getKey() + ">";
+				xmlFile += "\t\t<" + child.getKey() + ">" + child.getValue().toString() + "</" + child.getKey() + ">\n";
 			}
 		}
-		xmlFile += "\t</variables>";
+		xmlFile += "\t</variables>\n";
 		// Generate children nodes
-		xmlFile += "\t<children>";
+		xmlFile += "\t<children>\n";
 		for (ISubmittedObject child : getChildren()) {
 			xmlFile += ((ISubmittedFormElement) child).generateXML("\t\t");
 		}
-		xmlFile += "\t</children>";
+		xmlFile += "\t</children>\n";
 		xmlFile += "</" + this.getClass().getSimpleName() + ">";
 		return xmlFile;
 	}
