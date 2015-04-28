@@ -150,7 +150,7 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		xmlFile += tabs + "\t</variables>\n";
 		// Generate children nodes
 		xmlFile += tabs + "\t<value>" + getAnswer() + "</value>\n";
-		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">";
+		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">\n";
 		return xmlFile;
 	}
 
