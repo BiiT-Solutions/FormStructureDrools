@@ -85,7 +85,7 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
 		// Generate children nodes
 		xmlFile += tabs + "\t<children>\n";
 		for (ISubmittedObject child : getChildren()) {
-			xmlFile += ((ISubmittedFormElement) child).generateXML(tabs + "\t");
+			xmlFile += ((ISubmittedFormElement) child).generateXML(tabs + "\t\t");
 		}
 		xmlFile += tabs + "\t</children>\n";
 		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">\n";
