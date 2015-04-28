@@ -2,6 +2,7 @@ package com.biit.drools.form;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
@@ -12,12 +13,8 @@ import com.biit.form.submitted.exceptions.CategoryDoesNotExistException;
 import com.biit.form.submitted.exceptions.QuestionDoesNotExistException;
 import com.biit.form.submitted.implementation.SubmittedForm;
 
-/**
- * Basic implementation of an Orbeon Form that includes categories and questions.
- * 
- */
 public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement {
-	// TreeObject -> VarName --> ValuegetVariableScope
+	// TreeObject -> VarName --> Value
 	private HashMap<Object, HashMap<String, Object>> formVariables;
 
 	public DroolsSubmittedForm(String applicationName, String formName, String formVersion) {
@@ -137,11 +134,20 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
 	@Override
 	public String generateXML(String tabs) {
-		String xmlFile = "<" + getName() + " type=\"" + this.getClass().getSimpleName() + "\"" + ">\n";
-		for (ISubmittedObject child : getChildren()) {
-			xmlFile += ((ISubmittedFormElement) child).generateXML("\t");
+		String xmlFile = "<" + this.getClass().getSimpleName() + " label=\"" + getName() + "\"" + ">\n";
+		// Generate variables value
+		xmlFile += "\t<variables>";
+		for (Entry<String, Object> child : getVariablesValue().entrySet()) {
+			xmlFile += "\t\t<" + child.getKey() + ">" + child.getValue().toString() +"</" + child.getKey() + ">" ;
 		}
-		xmlFile += "</" + getName() + ">";
+		xmlFile += "\t</variables>";
+		// Generate children nodes
+		xmlFile += "\t<children>";
+		for (ISubmittedObject child : getChildren()) {
+			xmlFile += ((ISubmittedFormElement) child).generateXML("\t\t");
+		}
+		xmlFile += "\t</children>";
+		xmlFile += "</" + this.getClass().getSimpleName() + ">";
 		return xmlFile;
 	}
 
@@ -149,4 +155,16 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		return generateXML("");
 	}
 
+	@Override
+	public HashMap<String, Object> getVariablesValue(Object submittedFormTreeObject) {
+		if (formVariables == null) {
+			return null;
+		}
+		return formVariables.get(submittedFormTreeObject);
+	}
+
+	@Override
+	public HashMap<String, Object> getVariablesValue() {
+		return getVariablesValue(this);
+	}
 }

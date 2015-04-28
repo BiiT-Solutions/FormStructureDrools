@@ -1,6 +1,8 @@
 package com.biit.drools.form;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
@@ -70,11 +72,20 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
 
 	@Override
 	public String generateXML(String tabs) {
-		String xmlFile = tabs + "<" + getTag() + " type=\"" + this.getClass().getSimpleName() + "\"" + ">\n";
+		String xmlFile = tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n";
+		// Generate variables value
+		xmlFile += tabs + "\t<variables>";
+		for (Entry<String, Object> child : getVariablesValue().entrySet()) {
+			xmlFile += tabs + "\t\t<" + child.getKey() + ">" + child.getValue().toString() +"</" + child.getKey() + ">" ;
+		}
+		xmlFile += tabs + "\t</variables>";
+		// Generate children nodes
+		xmlFile += tabs + "\t<children>";
 		for (ISubmittedObject child : getChildren()) {
 			xmlFile += ((ISubmittedFormElement) child).generateXML(tabs + "\t");
 		}
-		xmlFile += tabs + "</" + getTag() + ">\n";
+		xmlFile += tabs + "\t</children>";
+		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">";
 		return xmlFile;
 	}
 
@@ -91,5 +102,15 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	@Override
+	public HashMap<String, Object> getVariablesValue(Object submmitedFormObject) {
+		return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submmitedFormObject);
+	}
+	
+	@Override
+	public HashMap<String, Object> getVariablesValue() {
+		return getVariablesValue(this);
 	}
 }

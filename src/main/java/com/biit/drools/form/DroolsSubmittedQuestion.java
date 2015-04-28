@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
@@ -136,8 +138,17 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 
 	@Override
 	public String generateXML(String tabs) {
-		return tabs + "<" + getTag() + " type=\"" + this.getClass().getSimpleName() + "\"" + ">" + getAnswer() + "</"
-				+ getTag() + ">\n";
+		String xmlFile = tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n";
+		// Generate variables value
+		xmlFile += tabs + "\t<variables>";
+		for (Entry<String, Object> child : getVariablesValue().entrySet()) {
+			xmlFile += tabs + "\t\t<" + child.getKey() + ">" + child.getValue().toString() +"</" + child.getKey() + ">" ;
+		}
+		xmlFile += tabs + "\t</variables>";
+		// Generate children nodes
+		xmlFile += tabs + "\t<value>" + getAnswer() + "</value>";
+		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">";
+		return xmlFile;
 	}
 
 	@Override
@@ -153,5 +164,15 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 	@Override
 	public String toString() {
 		return getName();
+	}
+	
+	@Override
+	public HashMap<String, Object> getVariablesValue(Object submmitedFormObject) {
+		return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submmitedFormObject);
+	}
+	
+	@Override
+	public HashMap<String, Object> getVariablesValue() {
+		return getVariablesValue(this);
 	}
 }
