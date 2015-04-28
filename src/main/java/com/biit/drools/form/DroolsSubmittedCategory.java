@@ -75,8 +75,11 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
 		String xmlFile = tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n";
 		// Generate variables value
 		xmlFile += tabs + "\t<variables>";
-		for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-			xmlFile += tabs + "\t\t<" + child.getKey() + ">" + child.getValue().toString() +"</" + child.getKey() + ">" ;
+		if (getVariablesValue() != null) {
+			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
+				xmlFile += tabs + "\t\t<" + child.getKey() + ">" + child.getValue().toString() + "</" + child.getKey()
+						+ ">";
+			}
 		}
 		xmlFile += tabs + "\t</variables>";
 		// Generate children nodes
@@ -108,7 +111,7 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
 	public HashMap<String, Object> getVariablesValue(Object submmitedFormObject) {
 		return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submmitedFormObject);
 	}
-	
+
 	@Override
 	public HashMap<String, Object> getVariablesValue() {
 		return getVariablesValue(this);
