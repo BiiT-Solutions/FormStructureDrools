@@ -139,7 +139,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		xmlFile += "\t<variables>\n";
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += "\t\t<" + child.getKey() + ">" + child.getValue().toString() + "</" + child.getKey() + ">\n";
+				xmlFile += "\t\t<" + child.getKey() + ">![CDATA[" + child.getValue().toString() + "]]</" + child.getKey() + ">\n";
 			}
 		}
 		xmlFile += "\t</variables>\n";

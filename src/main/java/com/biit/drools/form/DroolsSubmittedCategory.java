@@ -77,7 +77,7 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
 		xmlFile += tabs + "\t<variables>\n";
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += tabs + "\t\t<" + child.getKey() + ">" + child.getValue().toString() + "</" + child.getKey()
+				xmlFile += tabs + "\t\t<" + child.getKey() + ">![CDATA[" + child.getValue().toString() + "]]</" + child.getKey()
 						+ ">\n";
 			}
 		}
