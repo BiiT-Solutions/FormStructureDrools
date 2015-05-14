@@ -143,13 +143,17 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		xmlFile += tabs + "\t<variables>\n";
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></" + child.getKey()
-						+ ">\n";
+				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
+						+ child.getKey() + ">\n";
 			}
 		}
 		xmlFile += tabs + "\t</variables>\n";
-		// Generate children nodes
-		xmlFile += tabs + "\t<value><![CDATA[" + getAnswer() + "]]></value>\n";
+		// Generate answer values
+		xmlFile += tabs + "\t<value>";
+		if (getAnswer() != null) {
+			xmlFile += "<![CDATA[" + getAnswer() + "]]>";
+		}
+		xmlFile += "</value>\n";
 		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">\n";
 		return xmlFile;
 	}
