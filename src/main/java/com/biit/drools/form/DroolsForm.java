@@ -10,8 +10,7 @@ import com.biit.form.submitted.implementation.SubmittedForm;
 
 /**
  * Needed to allow drools to manage variables in memory.<br>
- * It is used as the parent class of the droolsSubmittedform, to allow the
- * droolsSubmittedform to manage variables.<br>
+ * It is used as the parent class of the droolsSubmittedform, to allow the droolsSubmittedform to manage variables.<br>
  */
 public class DroolsForm implements ISubmittedForm {
 
@@ -38,15 +37,15 @@ public class DroolsForm implements ISubmittedForm {
 
 	@Override
 	public String getName() {
-		return droolsSubmittedform.getName();
+		return getDroolsSubmittedForm().getName();
 	}
 
 	public String getApplicationName() {
-		return droolsSubmittedform.getApplicationName();
+		return getDroolsSubmittedForm().getApplicationName();
 	}
 
 	public String getId() {
-		return droolsSubmittedform.getId();
+		return getDroolsSubmittedForm().getId();
 	}
 
 	public void setDroolsSubmittedForm(SubmittedForm droolsSubmittedform) {
@@ -115,22 +114,22 @@ public class DroolsForm implements ISubmittedForm {
 
 	@Override
 	public String getPathName() {
-		return droolsSubmittedform.getPathName();
+		return getDroolsSubmittedForm().getPathName();
 	}
 
 	@Override
 	public Integer getIndex(ISubmittedObject child) {
-		return droolsSubmittedform.getIndex(child);
+		return getDroolsSubmittedForm().getIndex(child);
 	}
 
 	@Override
 	public int compareTo(ISubmittedObject arg0) {
-		return droolsSubmittedform.compareTo(arg0);
+		return getDroolsSubmittedForm().compareTo(arg0);
 	}
 
 	@Override
 	public int getLevel() {
-		return droolsSubmittedform.getLevel();
+		return getDroolsSubmittedForm().getLevel();
 	}
 
 	@Override
