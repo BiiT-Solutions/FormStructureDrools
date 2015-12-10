@@ -55,8 +55,7 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		case "POSTAL_CODE":
 			return answersAsString().toUpperCase();
 		case "TEXT":
-			return answersAsString();
-
+			return getAnswers();
 		case "DATE":
 			if (getAnswers() != null && !getAnswers().isEmpty()) {
 				try {
