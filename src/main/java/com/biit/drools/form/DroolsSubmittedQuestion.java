@@ -33,7 +33,7 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 				try {
 					parsedValue = new SimpleDateFormat(DATE_FORMAT).parse(getAnswers().iterator().next());
 				} catch (Exception e1) {
-					parsedValue = getAnswers();
+					parsedValue = answersAsString();
 				}
 			}
 			return parsedValue;
@@ -53,9 +53,9 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 			}
 
 		case "POSTAL_CODE":
-			return getAnswers().iterator().next().toUpperCase();
+			return answersAsString().toUpperCase();
 		case "TEXT":
-			return getAnswers().iterator().next();
+			return answersAsString();
 
 		case "DATE":
 			if (getAnswers() != null && !getAnswers().isEmpty()) {
