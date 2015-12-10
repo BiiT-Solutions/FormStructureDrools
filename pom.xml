@@ -40,7 +40,7 @@
 		<project.scm.id>git</project.scm.id>
 		<gson.version>2.3.1</gson.version>
 		<!-- BiiT dependencies -->
-		<biit-form-submitted.version>[0.1,0.2)</biit-form-submitted.version>
+		<biit-form-submitted.version>[0.2,0.3)</biit-form-submitted.version>
 	</properties>
 
 	<dependencies>
