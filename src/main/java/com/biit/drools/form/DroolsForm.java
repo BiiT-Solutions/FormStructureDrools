@@ -1,5 +1,6 @@
 package com.biit.drools.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.biit.form.submitted.ISubmittedCategory;
@@ -140,5 +141,10 @@ public class DroolsForm implements ISubmittedForm {
 	@Override
 	public ISubmittedObject getChild(String pathstring) {
 		return getDroolsSubmittedForm().getChild(pathstring);
+	}
+
+	@Override
+	public List<String> getPath() {
+		return new ArrayList<>();
 	}
 }

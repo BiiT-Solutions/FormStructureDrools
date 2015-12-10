@@ -28,12 +28,12 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		if (answerFormat.isEmpty()) {
 			Object parsedValue = null;
 			try {
-				parsedValue = Double.parseDouble(getAnswer());
+				parsedValue = Double.parseDouble(getAnswers().iterator().next());
 			} catch (Exception e) {
 				try {
-					parsedValue = new SimpleDateFormat(DATE_FORMAT).parse(getAnswer());
+					parsedValue = new SimpleDateFormat(DATE_FORMAT).parse(getAnswers().iterator().next());
 				} catch (Exception e1) {
-					parsedValue = getAnswer();
+					parsedValue = getAnswers();
 				}
 			}
 			return parsedValue;
@@ -42,9 +42,9 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		Object parsedValue = null;
 		switch (answerFormat) {
 		case "NUMBER":
-			if (getAnswer() != null && !getAnswer().isEmpty()) {
+			if (getAnswers() != null && !getAnswers().isEmpty()) {
 				try {
-					return Double.parseDouble(getAnswer());
+					return Double.parseDouble(getAnswers().iterator().next());
 				} catch (Exception e) {
 					return 0.0;
 				}
@@ -53,14 +53,14 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 			}
 
 		case "POSTAL_CODE":
-			return getAnswer().toUpperCase();
+			return getAnswers().iterator().next().toUpperCase();
 		case "TEXT":
-			return getAnswer();
+			return getAnswers().iterator().next();
 
 		case "DATE":
-			if (getAnswer() != null && !getAnswer().isEmpty()) {
+			if (getAnswers() != null && !getAnswers().isEmpty()) {
 				try {
-					return new SimpleDateFormat(DATE_FORMAT).parse(getAnswer());
+					return new SimpleDateFormat(DATE_FORMAT).parse(getAnswers().iterator().next());
 
 				} catch (ParseException e) {
 					// Default, create tomorrow's date
@@ -143,15 +143,14 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		xmlFile += tabs + "\t<variables>\n";
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
-						+ child.getKey() + ">\n";
+				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></" + child.getKey() + ">\n";
 			}
 		}
 		xmlFile += tabs + "\t</variables>\n";
 		// Generate answer values
 		xmlFile += tabs + "\t<value>";
-		if (getAnswer() != null) {
-			xmlFile += "<![CDATA[" + getAnswer() + "]]>";
+		if (getAnswers() != null && !getAnswers().isEmpty()) {
+			xmlFile += "<![CDATA[" + answersAsString() + "]]>";
 		}
 		xmlFile += "</value>\n";
 		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">\n";
@@ -165,7 +164,7 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 
 	@Override
 	public String getOriginalValue() {
-		return getAnswer();
+		return answersAsString();
 	}
 
 	@Override
@@ -181,5 +180,13 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 	@Override
 	public HashMap<String, Object> getVariablesValue() {
 		return getVariablesValue(this);
+	}
+
+	private String answersAsString() {
+		String text = "";
+		for (String answer : getAnswers()) {
+			text += answer + " ";
+		}
+		return text.trim();
 	}
 }
