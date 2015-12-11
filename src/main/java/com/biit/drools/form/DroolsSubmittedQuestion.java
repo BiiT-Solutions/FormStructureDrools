@@ -55,6 +55,10 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		case "POSTAL_CODE":
 			return answersAsString().toUpperCase();
 		case "TEXT":
+			// Only one answer, return a string, not a set
+			if (getAnswers().size() == 1) {
+				return answersAsString();
+			}
 			return getAnswers();
 		case "DATE":
 			if (getAnswers() != null && !getAnswers().isEmpty()) {
@@ -142,7 +146,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		xmlFile += tabs + "\t<variables>\n";
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></" + child.getKey() + ">\n";
+				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
+						+ child.getKey() + ">\n";
 			}
 		}
 		xmlFile += tabs + "\t</variables>\n";
