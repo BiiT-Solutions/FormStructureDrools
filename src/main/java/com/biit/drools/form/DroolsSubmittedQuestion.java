@@ -21,11 +21,15 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		super(tag);
 	}
 
-	public Object getAnswer(DroolsQuestionsFormat answerFormat) {
+	public Object getAnswer(String answerFormat) {
+		return getAnswer(DroolsQuestionFormat.get(answerFormat));
+	}
+
+	public Object getAnswer(DroolsQuestionFormat answerFormat) {
 		if (answerFormat == null) {
 			return null;
 		}
-		if (answerFormat == null || answerFormat.equals(DroolsQuestionsFormat.NULL)) {
+		if (answerFormat == null || answerFormat.equals(DroolsQuestionFormat.NULL)) {
 			return getSimpleAnswer();
 		}
 
