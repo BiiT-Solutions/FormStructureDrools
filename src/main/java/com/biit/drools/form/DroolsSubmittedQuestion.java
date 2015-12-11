@@ -21,27 +21,17 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		super(tag);
 	}
 
-	public Object getAnswer(String answerFormat) {
+	public Object getAnswer(DroolsQuestionsFormat answerFormat) {
 		if (answerFormat == null) {
 			return null;
 		}
-		if (answerFormat.isEmpty()) {
-			Object parsedValue = null;
-			try {
-				parsedValue = Double.parseDouble(getAnswers().iterator().next());
-			} catch (Exception e) {
-				try {
-					parsedValue = new SimpleDateFormat(DATE_FORMAT).parse(getAnswers().iterator().next());
-				} catch (Exception e1) {
-					parsedValue = answersAsString();
-				}
-			}
-			return parsedValue;
+		if (answerFormat == null || answerFormat.equals(DroolsQuestionsFormat.NULL)) {
+			return getSimpleAnswer();
 		}
 
 		Object parsedValue = null;
 		switch (answerFormat) {
-		case "NUMBER":
+		case NUMBER:
 			if (getAnswers() != null && !getAnswers().isEmpty()) {
 				try {
 					return Double.parseDouble(getAnswers().iterator().next());
@@ -52,15 +42,13 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 				return 0.0;
 			}
 
-		case "POSTAL_CODE":
+		case POSTAL_CODE:
 			return answersAsString().toUpperCase();
-		case "TEXT":
-			// Only one answer, return a string, not a set
-			if (getAnswers().size() == 1) {
-				return answersAsString();
-			}
+		case TEXT:
+			return answersAsString();
+		case MULTI_TEXT:
 			return getAnswers();
-		case "DATE":
+		case DATE:
 			if (getAnswers() != null && !getAnswers().isEmpty()) {
 				try {
 					return new SimpleDateFormat(DATE_FORMAT).parse(getAnswers().iterator().next());
@@ -80,6 +68,24 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 				cal.add(Calendar.DAY_OF_YEAR, 1);
 				Date tomorrow = cal.getTime();
 				return new SimpleDateFormat(DATE_FORMAT).format(tomorrow);
+			}
+		case NULL:
+			return getSimpleAnswer();
+		default:
+			break;
+		}
+		return parsedValue;
+	}
+
+	private Object getSimpleAnswer() {
+		Object parsedValue = null;
+		try {
+			parsedValue = Double.parseDouble(getAnswers().iterator().next());
+		} catch (Exception e) {
+			try {
+				parsedValue = new SimpleDateFormat(DATE_FORMAT).parse(getAnswers().iterator().next());
+			} catch (Exception e1) {
+				parsedValue = answersAsString();
 			}
 		}
 		return parsedValue;
