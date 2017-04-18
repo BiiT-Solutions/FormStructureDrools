@@ -86,8 +86,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
 	@Override
 	public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
-		return !((formVariables == null) || (formVariables.get(submittedFormTreeObject) == null) || (formVariables.get(
-				submittedFormTreeObject).get(varName) == null));
+		return !((formVariables == null) || (formVariables.get(submittedFormTreeObject) == null) || (formVariables.get(submittedFormTreeObject).get(varName) == null));
 	}
 
 	@Override
@@ -121,10 +120,8 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		return this;
 	}
 
-	public ISubmittedQuestion getQuestion(String categoryName, String questionName)
-			throws QuestionDoesNotExistException, CategoryDoesNotExistException {
-		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class,
-				questionName);
+	public ISubmittedQuestion getQuestion(String categoryName, String questionName) throws QuestionDoesNotExistException, CategoryDoesNotExistException {
+		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class, questionName);
 	}
 
 	@Override
@@ -168,5 +165,10 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 	@Override
 	public HashMap<String, Object> getVariablesValue() {
 		return getVariablesValue(this);
+	}
+
+	@Override
+	public String getXPath() {
+		return "/" + this.getClass().getSimpleName() + "[@label='" + getTag() + "']";
 	}
 }
