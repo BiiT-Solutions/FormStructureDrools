@@ -11,7 +11,8 @@ import com.biit.form.submitted.implementation.SubmittedForm;
 
 /**
  * Needed to allow drools to manage variables in memory.<br>
- * It is used as the parent class of the droolsSubmittedform, to allow the droolsSubmittedform to manage variables.<br>
+ * It is used as the parent class of the droolsSubmittedform, to allow the
+ * droolsSubmittedform to manage variables.<br>
  */
 public class DroolsForm implements ISubmittedForm {
 
@@ -32,8 +33,7 @@ public class DroolsForm implements ISubmittedForm {
 	}
 
 	public ISubmittedQuestion getQuestion(String categoryName, String questionName) {
-		return (ISubmittedQuestion) droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName).getChild(
-				ISubmittedQuestion.class, questionName);
+		return (ISubmittedQuestion) droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class, questionName);
 	}
 
 	@Override
@@ -146,5 +146,10 @@ public class DroolsForm implements ISubmittedForm {
 	@Override
 	public List<String> getPath() {
 		return new ArrayList<>();
+	}
+
+	@Override
+	public String getXPath() {
+		return "/" + this.getClass().getSimpleName() + "[@label='" + getTag() + "']";
 	}
 }
