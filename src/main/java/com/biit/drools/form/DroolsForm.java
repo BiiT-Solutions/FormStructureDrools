@@ -3,6 +3,7 @@ package com.biit.drools.form;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.biit.form.entity.IQuestionWithAnswers;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedObject;
@@ -104,7 +105,7 @@ public class DroolsForm implements ISubmittedForm {
 	}
 
 	@Override
-	public List<ISubmittedObject> getChildren(Class<?> type) {
+	public <T> List<T> getChildren(Class<T> type) {
 		return getDroolsSubmittedForm().getChildren(type);
 	}
 
@@ -151,5 +152,10 @@ public class DroolsForm implements ISubmittedForm {
 	@Override
 	public String getXPath() {
 		return "/" + this.getClass().getSimpleName() + "[@label='" + getTag() + "']";
+	}
+
+	@Override
+	public List<IQuestionWithAnswers> getQuestionsWithAnswers() {
+		return getChildren(IQuestionWithAnswers.class);
 	}
 }
