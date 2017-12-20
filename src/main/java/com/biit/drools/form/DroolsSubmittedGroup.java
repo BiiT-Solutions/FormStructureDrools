@@ -44,8 +44,8 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
 	}
 
 	@Override
-	public Object getVariableValue(Class<?> type, String varName) {
-		List<ISubmittedObject> childs = getChildren(type);
+	public <T> Object getVariableValue(Class<T> type, String varName) {
+		List<T> childs = getChildren(type);
 
 		if (childs != null && !childs.isEmpty()) {
 			return getVariableValue(childs.get(0), varName);
@@ -75,8 +75,7 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
 		xmlFile += tabs + "\t<variables>\n";
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></" + child.getKey()
-						+ ">\n";
+				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></" + child.getKey() + ">\n";
 			}
 		}
 		xmlFile += tabs + "\t</variables>\n";

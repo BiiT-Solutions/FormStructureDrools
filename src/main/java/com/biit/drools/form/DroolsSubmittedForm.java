@@ -34,8 +34,8 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 	}
 
 	@Override
-	public Object getVariableValue(Class<?> type, String varName) {
-		List<ISubmittedObject> childs = getChildren(type);
+	public <T> Object getVariableValue(Class<T> type, String varName) {
+		List<T> childs = getChildren(type);
 
 		if (childs != null && !childs.isEmpty()) {
 			return getVariableValue(childs.get(0), varName);
