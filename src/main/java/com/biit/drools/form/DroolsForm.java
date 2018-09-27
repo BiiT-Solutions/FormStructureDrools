@@ -1,5 +1,6 @@
 package com.biit.drools.form;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ import com.biit.form.submitted.implementation.SubmittedForm;
  * It is used as the parent class of the droolsSubmittedform, to allow the
  * droolsSubmittedform to manage variables.<br>
  */
-public class DroolsForm implements ISubmittedForm {
-
+public class DroolsForm implements ISubmittedForm, Serializable {
+	private static final long serialVersionUID = -507044452465253286L;
 	private ISubmittedForm droolsSubmittedform;
 	private final String label;
 
