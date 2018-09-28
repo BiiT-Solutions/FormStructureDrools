@@ -1,5 +1,6 @@
 package com.biit.drools.form;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -13,9 +14,15 @@ import com.biit.form.submitted.exceptions.CategoryDoesNotExistException;
 import com.biit.form.submitted.exceptions.QuestionDoesNotExistException;
 import com.biit.form.submitted.implementation.SubmittedForm;
 
-public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement {
+public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement, Serializable {
 	// TreeObject -> VarName --> Value
 	private HashMap<Object, HashMap<String, Object>> formVariables;
+
+	private static final long serialVersionUID = -1289388087219471449L;
+
+	public DroolsSubmittedForm() {
+		super("", "");
+	}
 
 	public DroolsSubmittedForm(String applicationName, String formName) {
 		super(applicationName, formName);
