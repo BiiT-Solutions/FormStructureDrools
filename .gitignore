@@ -1,6 +1,7 @@
 .settings
 .project
 .classpath
+.idea
 gen
 target
 bin
