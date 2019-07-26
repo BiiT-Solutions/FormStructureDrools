@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.implementation.SubmittedQuestion;
@@ -154,9 +155,12 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		String xmlFile = tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n";
 		// Generate variables value
 		xmlFile += tabs + "\t<variables>\n";
+		DroolsSubmittedLogger.debug(this.getClass().getName(),
+				"Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></" + child.getKey() + ">\n";
+				xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
+						+ child.getKey() + ">\n";
 			}
 		}
 		xmlFile += tabs + "\t</variables>\n";
@@ -167,6 +171,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 		}
 		xmlFile += "</value>\n";
 		xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">\n";
+		DroolsSubmittedLogger.debug(this.getClass().getName(),
+				"XML Generated for '" + this.getName() + "' is:\n" + xmlFile);
 		return xmlFile;
 	}
 

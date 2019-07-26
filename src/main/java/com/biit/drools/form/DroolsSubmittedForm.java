@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedFormElement;
@@ -93,12 +94,15 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
 	@Override
 	public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
-		return !((formVariables == null) || (formVariables.get(submittedFormTreeObject) == null) || (formVariables.get(submittedFormTreeObject).get(varName) == null));
+		return !((formVariables == null) || (formVariables.get(submittedFormTreeObject) == null)
+				|| (formVariables.get(submittedFormTreeObject).get(varName) == null));
 	}
 
 	@Override
 	public void setVariableValue(Object submittedFormTreeObject, String varName, Object value) {
 		if (value != null) {
+			DroolsSubmittedLogger.debug(this.getClass().getName(), "Setting variable '" + varName + "' with value '"
+					+ value + "' for '" + submittedFormTreeObject + "'.");
 			if (formVariables == null) {
 				formVariables = new HashMap<Object, HashMap<String, Object>>();
 			}
@@ -127,8 +131,10 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		return this;
 	}
 
-	public ISubmittedQuestion getQuestion(String categoryName, String questionName) throws QuestionDoesNotExistException, CategoryDoesNotExistException {
-		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class, questionName);
+	public ISubmittedQuestion getQuestion(String categoryName, String questionName)
+			throws QuestionDoesNotExistException, CategoryDoesNotExistException {
+		return (ISubmittedQuestion) getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class,
+				questionName);
 	}
 
 	@Override
@@ -141,9 +147,12 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		String xmlFile = "<" + this.getClass().getSimpleName() + " label=\"" + getName() + "\"" + ">\n";
 		// Generate variables value
 		xmlFile += "\t<variables>\n";
+		DroolsSubmittedLogger.debug(this.getClass().getName(),
+				"Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
 		if (getVariablesValue() != null) {
 			for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-				xmlFile += "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></" + child.getKey() + ">\n";
+				xmlFile += "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
+						+ child.getKey() + ">\n";
 			}
 		}
 		xmlFile += "\t</variables>\n";
@@ -154,6 +163,8 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		}
 		xmlFile += "\t</children>\n";
 		xmlFile += "</" + this.getClass().getSimpleName() + ">";
+		DroolsSubmittedLogger.debug(this.getClass().getName(),
+				"XML Generated for '" + this.getName() + "' is:\n" + xmlFile);
 		return xmlFile;
 	}
 
@@ -166,6 +177,8 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		if (formVariables == null) {
 			return null;
 		}
+		DroolsSubmittedLogger.debug(this.getClass().getName(), "Form variables for '" + submittedFormTreeObject
+				+ "' are '" + formVariables.get(submittedFormTreeObject) + "'.");
 		return formVariables.get(submittedFormTreeObject);
 	}
 
