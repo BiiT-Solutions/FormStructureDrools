@@ -116,7 +116,7 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 	}
 
 	@Override
-	public <T> Object getVariableValue(Class<T> type, String varName) {
+	public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String varName) {
 		List<T> childs = getChildren(type);
 
 		if (childs != null && !childs.isEmpty()) {
@@ -126,7 +126,7 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 	}
 
 	@Override
-	public Object getVariableValue(Class<?> type, String treeObjectName, String varName) {
+	public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String treeObjectName, String varName) {
 		ISubmittedObject child = getChild(type, treeObjectName);
 
 		if (child != null) {

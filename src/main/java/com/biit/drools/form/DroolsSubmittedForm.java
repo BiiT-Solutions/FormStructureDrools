@@ -42,7 +42,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 	}
 
 	@Override
-	public <T> Object getVariableValue(Class<T> type, String varName) {
+	public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String varName) {
 		List<T> childs = getChildren(type);
 
 		if (childs != null && !childs.isEmpty()) {
@@ -52,8 +52,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 	}
 
 	@Override
-	public Object getVariableValue(Class<?> type, String treeObjectName, String varName) {
-
+	public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String treeObjectName, String varName) {
 		ISubmittedObject selectedObject = null;
 		// Check this element.
 		if (type.isInstance(this)) {

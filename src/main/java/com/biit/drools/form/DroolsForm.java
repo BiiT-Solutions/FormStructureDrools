@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.biit.form.entity.IQuestionWithAnswers;
+import com.biit.form.result.FormResult;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedObject;
@@ -35,7 +36,8 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 	}
 
 	public ISubmittedQuestion getQuestion(String categoryName, String questionName) {
-		return (ISubmittedQuestion) droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName).getChild(ISubmittedQuestion.class, questionName);
+		return (ISubmittedQuestion) droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName)
+				.getChild(ISubmittedQuestion.class, questionName);
 	}
 
 	@Override
@@ -101,7 +103,7 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 	}
 
 	@Override
-	public ISubmittedObject getChild(Class<?> type, String tag) {
+	public <T> T getChild(Class<T> type, String tag) {
 		return getDroolsSubmittedForm().getChild(type, tag);
 	}
 
@@ -158,5 +160,17 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 	@Override
 	public List<IQuestionWithAnswers> getQuestionsWithAnswers() {
 		return getChildren(IQuestionWithAnswers.class);
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FormResult fromJson(String jsonString) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
