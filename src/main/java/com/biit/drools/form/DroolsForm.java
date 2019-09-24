@@ -169,7 +169,7 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 	}
 
 	@Override
-	public FormResult fromJson(String jsonString) {
+	public SubmittedForm fromJson(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}
