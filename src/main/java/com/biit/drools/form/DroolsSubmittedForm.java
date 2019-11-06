@@ -29,6 +29,10 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 		super(applicationName, formName);
 	}
 
+	public DroolsSubmittedForm(String applicationName, String formName, Integer version) {
+		super(applicationName, formName, version);
+	}
+
 	public DroolsSubmittedForm(String formName) {
 		super("", formName);
 	}

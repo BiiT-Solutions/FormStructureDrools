@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.biit.form.entity.IQuestionWithAnswers;
-import com.biit.form.result.FormResult;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedObject;
