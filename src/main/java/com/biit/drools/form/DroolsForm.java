@@ -107,6 +107,11 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 	}
 
 	@Override
+	public <T> List<T> getChildrenRecursive(Class<T> type) {
+		return getDroolsSubmittedForm().getChildrenRecursive(type);
+	}
+
+	@Override
 	public <T> List<T> getChildren(Class<T> type) {
 		return getDroolsSubmittedForm().getChildren(type);
 	}
@@ -158,7 +163,7 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 
 	@Override
 	public List<IQuestionWithAnswers> getQuestionsWithAnswers() {
-		return getChildren(IQuestionWithAnswers.class);
+		return getChildrenRecursive(IQuestionWithAnswers.class);
 	}
 
 	@Override
@@ -172,4 +177,5 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

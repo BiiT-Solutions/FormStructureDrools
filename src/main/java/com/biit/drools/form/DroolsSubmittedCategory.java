@@ -38,7 +38,7 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
 
 	@Override
 	public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String varName) {
-		List<T> childs = getChildren(type);
+		List<T> childs = getChildrenRecursive(type);
 
 		if (childs != null && !childs.isEmpty()) {
 			return getVariableValue(childs.get(0), varName);
