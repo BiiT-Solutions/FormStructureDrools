@@ -24,7 +24,7 @@
 
 	<scm>
 		<connection>scm:git:git.biit-solutions.com:BiiT/FormStructureDrools.git</connection>
-		<connection>scm:git:git.biit-solutions.com:BiiT/FormStructureDrools.git</developerConnection>
+		<developerConnection>scm:git:git.biit-solutions.com:BiiT/FormStructureDrools.git</developerConnection>
 		<tag>form-structure-drools</tag>
 	</scm>
 
