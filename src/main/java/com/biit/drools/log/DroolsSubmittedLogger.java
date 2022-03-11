@@ -1,6 +1,5 @@
 package com.biit.drools.log;
 
-
 import com.biit.logger.BiitLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
