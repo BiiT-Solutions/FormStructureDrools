@@ -14,3 +14,5 @@ tmp
 styles.css
 /abcd-core/src/test/resources/generatedRules.drl
 /target
+*.iml
+.idea
