@@ -150,28 +150,27 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
     @Override
     public String generateXML(String tabs) {
-        String xmlFile = "<" + this.getClass().getSimpleName() + " label=\"" + getName() + "\"" + ">\n";
+        StringBuilder xmlFile = new StringBuilder("<" + this.getClass().getSimpleName() + " label=\"" + getName() + "\"" + ">\n");
         // Generate variables value
-        xmlFile += "\t<variables>\n";
+        xmlFile.append("\t<variables>\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
         if (getVariablesValue() != null) {
             for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-                xmlFile += "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
-                        + child.getKey() + ">\n";
+                xmlFile.append("\t\t<").append(child.getKey()).append("><![CDATA[").append(child.getValue().toString()).append("]]></").append(child.getKey()).append(">\n");
             }
         }
-        xmlFile += "\t</variables>\n";
+        xmlFile.append("\t</variables>\n");
         // Generate children nodes
-        xmlFile += "\t<children>\n";
+        xmlFile.append("\t<children>\n");
         for (ISubmittedObject child : getChildren()) {
-            xmlFile += ((ISubmittedFormElement) child).generateXML("\t\t");
+            xmlFile.append(((ISubmittedFormElement) child).generateXML("\t\t"));
         }
-        xmlFile += "\t</children>\n";
-        xmlFile += "</" + this.getClass().getSimpleName() + ">";
+        xmlFile.append("\t</children>\n");
+        xmlFile.append("</").append(this.getClass().getSimpleName()).append(">");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "XML Generated for '" + this.getName() + "' is:\n" + xmlFile);
-        return xmlFile;
+        return xmlFile.toString();
     }
 
     public String generateXML() {
