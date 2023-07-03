@@ -23,4 +23,8 @@ public enum DroolsQuestionFormat {
         return null;
     }
 
+    public boolean isStringBased() {
+        return this.equals(DroolsQuestionFormat.TEXT) || this.equals(DroolsQuestionFormat.MULTI_TEXT) || this.equals(DroolsQuestionFormat.POSTAL_CODE);
+    }
+
 }

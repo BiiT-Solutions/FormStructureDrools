@@ -27,13 +27,13 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     public Object getAnswer(DroolsQuestionFormat answerFormat) {
-        if (answerFormat == null || answerFormat.equals(DroolsQuestionFormat.NULL)) {
+        if (answerFormat == null) {
             return getSimpleAnswer();
         }
 
         final Object parsedValue = null;
         switch (answerFormat) {
-            case NUMBER:
+            case NUMBER -> {
                 if (getAnswers() != null && !getAnswers().isEmpty()) {
                     try {
                         return Double.parseDouble(getAnswers().iterator().next());
@@ -43,14 +43,17 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
                 } else {
                     return 0.0;
                 }
-
-            case POSTAL_CODE:
+            }
+            case POSTAL_CODE -> {
                 return answersAsString().toUpperCase();
-            case TEXT:
+            }
+            case TEXT -> {
                 return answersAsString();
-            case MULTI_TEXT:
+            }
+            case MULTI_TEXT -> {
                 return String.join(",", getAnswers());
-            case DATE:
+            }
+            case DATE -> {
                 if (getAnswers() != null && !getAnswers().isEmpty()) {
                     try {
                         return new SimpleDateFormat(DATE_FORMAT).parse(getAnswers().iterator().next());
@@ -71,16 +74,18 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
                     final Date tomorrow = cal.getTime();
                     return new SimpleDateFormat(DATE_FORMAT).format(tomorrow);
                 }
-            case NULL:
+            }
+            case NULL -> {
                 return getSimpleAnswer();
-            default:
-                break;
+            }
+            default -> {
+            }
         }
         return parsedValue;
     }
 
     private Object getSimpleAnswer() {
-        Object parsedValue = null;
+        Object parsedValue;
         try {
             parsedValue = Double.parseDouble(getAnswers().iterator().next());
         } catch (Exception e) {
@@ -149,28 +154,28 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 
     @Override
     public String generateXML(String tabs) {
-        String xmlFile = tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n";
+        final StringBuilder xmlFile = new StringBuilder(tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n");
         // Generate variables value
-        xmlFile += tabs + "\t<variables>\n";
+        xmlFile.append(tabs).append("\t<variables>\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
         if (getVariablesValue() != null) {
             for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-                xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
-                        + child.getKey() + ">\n";
+                xmlFile.append(tabs).append("\t\t<").append(child.getKey()).append("><![CDATA[").append(child.getValue().toString())
+                        .append("]]></").append(child.getKey()).append(">\n");
             }
         }
-        xmlFile += tabs + "\t</variables>\n";
+        xmlFile.append(tabs).append("\t</variables>\n");
         // Generate answer values
-        xmlFile += tabs + "\t<value>";
+        xmlFile.append(tabs).append("\t<value>");
         if (getAnswers() != null && !getAnswers().isEmpty()) {
-            xmlFile += "<![CDATA[" + answersAsString() + "]]>";
+            xmlFile.append("<![CDATA[").append(answersAsString()).append("]]>");
         }
-        xmlFile += "</value>\n";
-        xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">\n";
+        xmlFile.append("</value>\n");
+        xmlFile.append(tabs).append("</").append(this.getClass().getSimpleName()).append(">\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "XML Generated for '" + this.getName() + "' is:\n" + xmlFile);
-        return xmlFile;
+        return xmlFile.toString();
     }
 
     @Override
@@ -199,10 +204,10 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     private String answersAsString() {
-        String text = "";
+        final StringBuilder text = new StringBuilder();
         for (String answer : getAnswers()) {
-            text += answer + " ";
+            text.append(answer).append(" ");
         }
-        return text.trim();
+        return text.toString().trim();
     }
 }
