@@ -16,3 +16,4 @@ styles.css
 /target
 *.iml
 .idea
+.attach_pid*

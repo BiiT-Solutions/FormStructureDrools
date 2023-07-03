@@ -1,22 +1,19 @@
 package com.biit.drools.form;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
-import com.biit.form.submitted.exceptions.CategoryDoesNotExistException;
-import com.biit.form.submitted.exceptions.QuestionDoesNotExistException;
 import com.biit.form.submitted.implementation.SubmittedForm;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement, Serializable {
     // TreeObject -> VarName --> Value
@@ -50,7 +47,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
     @Override
     public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String varName) {
-        List<T> childs = getChildrenRecursive(type);
+        final List<T> childs = getChildrenRecursive(type);
 
         if (childs != null && !childs.isEmpty()) {
             return getVariableValue(childs.get(0), varName);
@@ -150,14 +147,15 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
     @Override
     public String generateXML(String tabs) {
-        StringBuilder xmlFile = new StringBuilder("<" + this.getClass().getSimpleName() + " label=\"" + getName() + "\"" + ">\n");
+        final StringBuilder xmlFile = new StringBuilder("<" + this.getClass().getSimpleName() + " label=\"" + getName() + "\"" + ">\n");
         // Generate variables value
         xmlFile.append("\t<variables>\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
         if (getVariablesValue() != null) {
             for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-                xmlFile.append("\t\t<").append(child.getKey()).append("><![CDATA[").append(child.getValue().toString()).append("]]></").append(child.getKey()).append(">\n");
+                xmlFile.append("\t\t<").append(child.getKey()).append("><![CDATA[").append(child.getValue().toString())
+                        .append("]]></").append(child.getKey()).append(">\n");
             }
         }
         xmlFile.append("\t</variables>\n");
