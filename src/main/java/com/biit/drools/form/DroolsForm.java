@@ -6,6 +6,7 @@ import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.form.submitted.implementation.SubmittedForm;
+import com.biit.form.submitted.implementation.SubmittedObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     }
 
     public ISubmittedQuestion getQuestion(String categoryName, String questionName) {
-        return (ISubmittedQuestion) droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName)
+        return droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName)
                 .getChild(ISubmittedQuestion.class, questionName);
     }
 
@@ -82,22 +83,22 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     }
 
     @Override
-    public void setParent(ISubmittedObject parent) {
+    public void setParent(SubmittedObject parent) {
         getDroolsSubmittedForm().setParent(parent);
     }
 
     @Override
-    public void addChild(ISubmittedObject child) {
+    public void addChild(SubmittedObject child) {
         getDroolsSubmittedForm().addChild(child);
     }
 
     @Override
-    public List<ISubmittedObject> getChildren() {
+    public List<SubmittedObject> getChildren() {
         return getDroolsSubmittedForm().getChildren();
     }
 
     @Override
-    public void setChildren(List<ISubmittedObject> children) {
+    public void setChildren(List<SubmittedObject> children) {
         getDroolsSubmittedForm().setChildren(children);
     }
 
