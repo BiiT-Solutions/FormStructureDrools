@@ -15,10 +15,10 @@ public class DroolsSubmittedFormSerializer extends SubmittedObjectSerializer<Dro
             jgen.writeStringField("applicationName", src.getApplicationName());
         }
         if (src.getOrganizationId() != null) {
-            jgen.writeStringField("organizationId", String.valueOf(src.getOrganizationId()));
+            jgen.writeNumberField("organizationId", src.getOrganizationId());
         }
         if (src.getVersion() != null) {
-            jgen.writeStringField("version", String.valueOf(src.getVersion()));
+            jgen.writeNumberField("version", src.getVersion());
         }
     }
 }

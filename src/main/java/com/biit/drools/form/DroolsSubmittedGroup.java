@@ -17,6 +17,11 @@ import java.util.Map.Entry;
 @JsonSerialize(using = DroolsSubmittedGroupSerializer.class)
 public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFormElement {
 
+    public DroolsSubmittedGroup() {
+        super();
+    }
+
+
     public DroolsSubmittedGroup(String tag) {
         super(tag);
     }

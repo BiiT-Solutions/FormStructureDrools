@@ -24,6 +24,10 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     // Date format based on the input received by the Orbeon forms
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
+    public DroolsSubmittedQuestion() {
+        super();
+    }
+
     public DroolsSubmittedQuestion(String tag) {
         super(tag);
     }

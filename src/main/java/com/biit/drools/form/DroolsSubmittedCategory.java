@@ -17,6 +17,10 @@ import java.util.Map.Entry;
 @JsonSerialize(using = DroolsSubmittedCategorySerializer.class)
 public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmittedFormElement {
 
+    public DroolsSubmittedCategory() {
+        super();
+    }
+
     public DroolsSubmittedCategory(String tag) {
         super(tag);
     }
