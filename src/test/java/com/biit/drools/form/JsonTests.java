@@ -23,7 +23,6 @@ public class JsonTests {
 
 
     private DroolsSubmittedForm droolsSubmittedForm;
-    private String jsonText;
 
     private String readFile(String fileName) {
         try {
@@ -73,7 +72,7 @@ public class JsonTests {
 
     @Test
     public void toJson() throws IOException {
-        jsonText = ObjectMapperFactory.getObjectMapper().writeValueAsString(droolsSubmittedForm);
+        String jsonText = ObjectMapperFactory.getObjectMapper().writeValueAsString(droolsSubmittedForm);
         checkContent(jsonText, "droolsSubmittedForm.json");
     }
 
