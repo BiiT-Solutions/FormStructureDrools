@@ -1,5 +1,7 @@
 package com.biit.drools.form;
 
+import com.biit.drools.form.serialization.DroolsSubmittedFormDeserializer;
+import com.biit.drools.form.serialization.DroolsSubmittedFormSerializer;
 import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
@@ -7,6 +9,8 @@ import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.form.submitted.implementation.SubmittedForm;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -15,6 +19,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+@JsonDeserialize(using = DroolsSubmittedFormDeserializer.class)
+@JsonSerialize(using = DroolsSubmittedFormSerializer.class)
 public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement, Serializable {
     // TreeObject -> VarName --> Value
     private HashMap<Object, HashMap<String, Object>> formVariables;

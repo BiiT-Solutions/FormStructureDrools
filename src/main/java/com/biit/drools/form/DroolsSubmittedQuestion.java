@@ -1,9 +1,13 @@
 package com.biit.drools.form;
 
+import com.biit.drools.form.serialization.DroolsSubmittedQuestionDeserializer;
+import com.biit.drools.form.serialization.DroolsSubmittedQuestionSerializer;
 import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.implementation.SubmittedQuestion;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+@JsonDeserialize(using = DroolsSubmittedQuestionDeserializer.class)
+@JsonSerialize(using = DroolsSubmittedQuestionSerializer.class)
 public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmittedFormElement {
 
     // Date format based on the input received by the Orbeon forms

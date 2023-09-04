@@ -1,14 +1,20 @@
 package com.biit.drools.form;
 
+import com.biit.drools.form.serialization.DroolsSubmittedGroupDeserializer;
+import com.biit.drools.form.serialization.DroolsSubmittedGroupSerializer;
 import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.implementation.SubmittedGroup;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+@JsonDeserialize(using = DroolsSubmittedGroupDeserializer.class)
+@JsonSerialize(using = DroolsSubmittedGroupSerializer.class)
 public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFormElement {
 
     public DroolsSubmittedGroup(String tag) {

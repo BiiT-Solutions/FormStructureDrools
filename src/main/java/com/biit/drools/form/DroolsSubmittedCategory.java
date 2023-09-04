@@ -1,14 +1,20 @@
 package com.biit.drools.form;
 
+import com.biit.drools.form.serialization.DroolsSubmittedCategoryDeserializer;
+import com.biit.drools.form.serialization.DroolsSubmittedCategorySerializer;
 import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.implementation.SubmittedCategory;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+@JsonDeserialize(using = DroolsSubmittedCategoryDeserializer.class)
+@JsonSerialize(using = DroolsSubmittedCategorySerializer.class)
 public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmittedFormElement {
 
     public DroolsSubmittedCategory(String tag) {
