@@ -30,8 +30,8 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:git.biit-solutions.com:BiiT/FormStructureDrools.git</connection>
-        <developerConnection>scm:git:git.biit-solutions.com:BiiT/FormStructureDrools.git</developerConnection>
+        <connection>scm:git:git.biit-solutions.com:Java/FormStructureDrools.git</connection>
+        <developerConnection>scm:git:git.biit-solutions.com:Java/FormStructureDrools.git</developerConnection>
         <tag>form-structure-drools</tag>
     </scm>
 
