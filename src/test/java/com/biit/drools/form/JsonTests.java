@@ -1,6 +1,7 @@
 package com.biit.drools.form;
 
 import com.biit.form.jackson.serialization.ObjectMapperFactory;
+import com.biit.form.submitted.implementation.SubmittedForm;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;

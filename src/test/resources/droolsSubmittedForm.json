@@ -17,5 +17,5 @@
   "applicationName" : "Test",
   "organizationId" : 23,
   "version" : 3,
-  "formVariables" : "{\"/DroolsSubmittedForm[@label='TheForm']/DroolsSubmittedCategory[@name='The Category']/DroolsSubmittedQuestion[@name='The Question']\":{\"var2\":\"asd\",\"var1\":5}}"
+  "formVariables" : "{\n  \"/DroolsSubmittedForm[@label='TheForm']/DroolsSubmittedCategory[@name='The Category']/DroolsSubmittedQuestion[@name='The Question']\" : {\n    \"var2\" : \"asd\",\n    \"var1\" : 5\n  }\n}"
 }

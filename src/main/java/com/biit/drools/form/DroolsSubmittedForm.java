@@ -3,12 +3,14 @@ package com.biit.drools.form;
 import com.biit.drools.form.serialization.DroolsSubmittedFormDeserializer;
 import com.biit.drools.form.serialization.DroolsSubmittedFormSerializer;
 import com.biit.drools.log.DroolsSubmittedLogger;
+import com.biit.form.jackson.serialization.ObjectMapperFactory;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.form.submitted.implementation.SubmittedForm;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -201,5 +203,9 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     @Override
     public String getXPath() {
         return "/" + this.getClass().getSimpleName() + "[@label='" + getTag() + "']";
+    }
+
+    public static DroolsSubmittedForm getFromJson(String jsonString) throws JsonProcessingException {
+        return ObjectMapperFactory.getObjectMapper().readValue(jsonString, DroolsSubmittedForm.class);
     }
 }
