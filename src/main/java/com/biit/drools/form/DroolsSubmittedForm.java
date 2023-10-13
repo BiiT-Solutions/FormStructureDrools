@@ -82,7 +82,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
     @Override
     public Object getVariableValue(ISubmittedObject submittedFormObject, String varName) {
-        if ((formVariables == null) || (formVariables.get(submittedFormObject) == null)) {
+        if ((formVariables == null) || (formVariables.get(submittedFormObject.getXPath()) == null)) {
             return null;
         }
         return formVariables.get(submittedFormObject.getXPath()).get(varName);
@@ -101,8 +101,8 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
     @Override
     public boolean isVariableDefined(ISubmittedObject submittedFormTreeObject, String varName) {
-        return !((formVariables == null) || (formVariables.get(submittedFormTreeObject) == null)
-                || (formVariables.get(submittedFormTreeObject).get(varName) == null));
+        return !((formVariables == null) || (formVariables.get(submittedFormTreeObject.getXPath()) == null)
+                || (formVariables.get(submittedFormTreeObject.getXPath()).get(varName) == null));
     }
 
     @Override
