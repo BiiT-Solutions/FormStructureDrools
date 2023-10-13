@@ -9,8 +9,8 @@ import com.biit.form.submitted.implementation.SubmittedGroup;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 @JsonDeserialize(using = DroolsSubmittedGroupDeserializer.class)
@@ -32,7 +32,7 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
     }
 
     @Override
-    public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
+    public boolean isVariableDefined(ISubmittedObject submittedFormTreeObject, String varName) {
         return ((ISubmittedFormElement) getParent()).isVariableDefined(submittedFormTreeObject, varName);
     }
 
@@ -46,8 +46,8 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue(Object submmitedFormObject) {
-        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submmitedFormObject);
+    public Map<String, Object> getVariablesValue(ISubmittedObject submittedFormObject) {
+        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submittedFormObject);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
     }
 
     @Override
-    public void setVariableValue(Object submmitedFormObject, String varName, Object value) {
-        ((ISubmittedFormElement) getParent()).setVariableValue(submmitedFormObject, varName, value);
+    public void setVariableValue(ISubmittedObject submittedFormObject, String varName, Object value) {
+        ((ISubmittedFormElement) getParent()).setVariableValue(submittedFormObject, varName, value);
     }
 
     @Override
@@ -122,12 +122,12 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue() {
+    public Map<String, Object> getVariablesValue() {
         return getVariablesValue(this);
     }
 
     @Override
-    public Object getVariableValue(Object submmitedFormObject, String varName) {
-        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submmitedFormObject, varName);
+    public Object getVariableValue(ISubmittedObject submittedFormObject, String varName) {
+        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submittedFormObject, varName);
     }
 }

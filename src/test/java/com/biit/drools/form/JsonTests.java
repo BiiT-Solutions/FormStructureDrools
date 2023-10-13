@@ -22,6 +22,7 @@ public class JsonTests {
 
 
     private DroolsSubmittedForm droolsSubmittedForm;
+    private DroolsSubmittedQuestion question;
 
     private String readFile(String fileName) {
         try {
@@ -62,11 +63,14 @@ public class JsonTests {
 
         DroolsSubmittedCategory category = new DroolsSubmittedCategory("The Category");
         droolsSubmittedForm.addChild(category);
-        DroolsSubmittedQuestion question = new DroolsSubmittedQuestion("The Question");
+        question = new DroolsSubmittedQuestion("The Question");
         question.addAnswer("One");
         question.addAnswer("Two");
         question.addAnswer("Three");
         category.addChild(question);
+
+        droolsSubmittedForm.setVariableValue(question, "var1", 5);
+        droolsSubmittedForm.setVariableValue(question, "var2", "asd");
     }
 
     @Test
@@ -80,5 +84,7 @@ public class JsonTests {
         final String jsonText = readFile("droolsSubmittedForm.json");
         final DroolsSubmittedForm droolsSubmittedForm = ObjectMapperFactory.getObjectMapper().readValue(jsonText, DroolsSubmittedForm.class);
         Assert.assertEquals(jsonText, ObjectMapperFactory.getObjectMapper().writeValueAsString(droolsSubmittedForm));
+        Assert.assertEquals(droolsSubmittedForm.getFormVariables().size(), 1);
+        Assert.assertEquals(droolsSubmittedForm.getFormVariables().get(question.getXPath()).size(), 2);
     }
 }

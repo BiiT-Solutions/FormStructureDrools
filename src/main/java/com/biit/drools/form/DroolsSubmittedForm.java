@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @JsonSerialize(using = DroolsSubmittedFormSerializer.class)
 public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement, Serializable {
     // TreeObject -> VarName --> Value
-    private HashMap<Object, HashMap<String, Object>> formVariables;
+    private Map<String, Map<String, Object>> formVariables;
 
     private static final long serialVersionUID = -1289388087219471449L;
 
@@ -81,11 +81,11 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     }
 
     @Override
-    public Object getVariableValue(Object submmitedFormObject, String varName) {
-        if ((formVariables == null) || (formVariables.get(submmitedFormObject) == null)) {
+    public Object getVariableValue(ISubmittedObject submittedFormObject, String varName) {
+        if ((formVariables == null) || (formVariables.get(submittedFormObject) == null)) {
             return null;
         }
-        return formVariables.get(submmitedFormObject).get(varName);
+        return formVariables.get(submittedFormObject.getXPath()).get(varName);
     }
 
     @Override
@@ -100,21 +100,21 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     }
 
     @Override
-    public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
+    public boolean isVariableDefined(ISubmittedObject submittedFormTreeObject, String varName) {
         return !((formVariables == null) || (formVariables.get(submittedFormTreeObject) == null)
                 || (formVariables.get(submittedFormTreeObject).get(varName) == null));
     }
 
     @Override
-    public void setVariableValue(Object submittedFormTreeObject, String varName, Object value) {
+    public void setVariableValue(ISubmittedObject submittedFormTreeObject, String varName, Object value) {
         if (value != null) {
             DroolsSubmittedLogger.debug(this.getClass().getName(), "Setting variable '" + varName + "' with value '"
                     + value + "' for '" + submittedFormTreeObject + "'.");
             if (formVariables == null) {
                 formVariables = new HashMap<>();
             }
-            formVariables.computeIfAbsent(submittedFormTreeObject, k -> new HashMap<>());
-            formVariables.get(submittedFormTreeObject).put(varName, value);
+            formVariables.computeIfAbsent(submittedFormTreeObject.getXPath(), k -> new HashMap<>());
+            formVariables.get(submittedFormTreeObject.getXPath()).put(varName, value);
         }
     }
 
@@ -123,16 +123,18 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
         setVariableValue(this, varName, value);
     }
 
-    @Override
-    public String toString() {
-        return getName();
-    }
-
-    public Map<Object, HashMap<String, Object>> getFormVariables() {
+    public Map<String, Map<String, Object>> getFormVariables() {
         return formVariables;
     }
 
-    public Map<Object, HashMap<String, Object>> getFormVariables(Class<?> filter) {
+    /**
+     * Only for json generation.
+     */
+    public void setFormVariables(Map<String, Map<String, Object>> formVariables) {
+        this.formVariables = formVariables;
+    }
+
+    public Map<String, Map<String, Object>> getFormVariables(Class<?> filter) {
         return formVariables.entrySet().stream().filter(key -> filter.isAssignableFrom(key.getKey().getClass()))
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
     }
@@ -182,17 +184,17 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue(Object submittedFormTreeObject) {
+    public Map<String, Object> getVariablesValue(ISubmittedObject submittedFormTreeObject) {
         if (formVariables == null) {
             return null;
         }
         DroolsSubmittedLogger.debug(this.getClass().getName(), "Form variables for '" + submittedFormTreeObject
                 + "' are '" + formVariables.get(submittedFormTreeObject) + "'.");
-        return formVariables.get(submittedFormTreeObject);
+        return formVariables.get(submittedFormTreeObject.getXPath());
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue() {
+    public Map<String, Object> getVariablesValue() {
         return getVariablesValue(this);
     }
 

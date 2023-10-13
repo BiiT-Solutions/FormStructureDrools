@@ -9,8 +9,8 @@ import com.biit.form.submitted.implementation.SubmittedCategory;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 @JsonDeserialize(using = DroolsSubmittedCategoryDeserializer.class)
@@ -36,7 +36,7 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
     }
 
     @Override
-    public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
+    public boolean isVariableDefined(ISubmittedObject submittedFormTreeObject, String varName) {
         // Retrieve the form which will have the variables
         return ((ISubmittedFormElement) getParent()).isVariableDefined(submittedFormTreeObject, varName);
     }
@@ -67,8 +67,8 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
     }
 
     @Override
-    public Object getVariableValue(Object submmitedFormObject, String varName) {
-        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submmitedFormObject, varName);
+    public Object getVariableValue(ISubmittedObject submittedFormObject, String varName) {
+        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submittedFormObject, varName);
     }
 
     @Override
@@ -77,8 +77,8 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
     }
 
     @Override
-    public void setVariableValue(Object submmitedFormObject, String varName, Object value) {
-        ((ISubmittedFormElement) getParent()).setVariableValue(submmitedFormObject, varName, value);
+    public void setVariableValue(ISubmittedObject submittedFormObject, String varName, Object value) {
+        ((ISubmittedFormElement) getParent()).setVariableValue(submittedFormObject, varName, value);
     }
 
     @Override
@@ -123,12 +123,12 @@ public class DroolsSubmittedCategory extends SubmittedCategory implements ISubmi
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue(Object submmitedFormObject) {
-        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submmitedFormObject);
+    public Map<String, Object> getVariablesValue(ISubmittedObject submittedFormObject) {
+        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submittedFormObject);
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue() {
+    public Map<String, Object> getVariablesValue() {
         return getVariablesValue(this);
     }
 }

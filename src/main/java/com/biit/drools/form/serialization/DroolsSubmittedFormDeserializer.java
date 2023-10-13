@@ -2,12 +2,16 @@ package com.biit.drools.form.serialization;
 
 import com.biit.drools.form.DroolsSubmittedForm;
 import com.biit.form.submitted.serialization.jackson.SubmittedObjectDeserializer;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
 public class DroolsSubmittedFormDeserializer extends SubmittedObjectDeserializer<DroolsSubmittedForm> {
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void deserialize(DroolsSubmittedForm element, JsonNode jsonObject, DeserializationContext context) throws IOException {
@@ -15,6 +19,10 @@ public class DroolsSubmittedFormDeserializer extends SubmittedObjectDeserializer
         element.setApplicationName(parseString("applicationName", jsonObject));
         element.setOrganizationId(parseLong("organizationId", jsonObject));
         element.setVersion(parseInteger("version", jsonObject));
+        element.setName(parseString("name", jsonObject));
+        element.setTag(parseString("tag", jsonObject));
+        element.setFormVariables(objectMapper.readValue(jsonObject.get("formVariables").textValue(), new TypeReference<>() {
+        }));
     }
 }
 

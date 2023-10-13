@@ -13,8 +13,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 @JsonDeserialize(using = DroolsSubmittedQuestionDeserializer.class)
@@ -114,7 +114,7 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     @Override
-    public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
+    public boolean isVariableDefined(ISubmittedObject submittedFormTreeObject, String varName) {
         return ((ISubmittedFormElement) getParent()).isVariableDefined(submittedFormTreeObject, varName);
     }
 
@@ -148,8 +148,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     @Override
-    public Object getVariableValue(Object submmitedFormObject, String varName) {
-        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submmitedFormObject, varName);
+    public Object getVariableValue(ISubmittedObject submittedObject, String varName) {
+        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submittedObject, varName);
     }
 
     @Override
@@ -158,8 +158,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     @Override
-    public void setVariableValue(Object submmitedFormObject, String varName, Object value) {
-        ((ISubmittedFormElement) getParent()).setVariableValue(submmitedFormObject, varName, value);
+    public void setVariableValue(ISubmittedObject submittedObject, String varName, Object value) {
+        ((ISubmittedFormElement) getParent()).setVariableValue(submittedObject, varName, value);
     }
 
     @Override
@@ -204,12 +204,12 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue(Object submmitedFormObject) {
-        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submmitedFormObject);
+    public Map<String, Object> getVariablesValue(ISubmittedObject submittedFormObject) {
+        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submittedFormObject);
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue() {
+    public Map<String, Object> getVariablesValue() {
         return getVariablesValue(this);
     }
 
