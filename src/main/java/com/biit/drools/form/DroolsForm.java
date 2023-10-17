@@ -19,14 +19,14 @@ import java.util.List;
  */
 public class DroolsForm implements ISubmittedForm, Serializable {
     private static final long serialVersionUID = -507044452465253286L;
-    private ISubmittedForm droolsSubmittedform;
+    private ISubmittedForm droolsSubmittedForm;
     private final String label;
     private String linkedLabel;
     private Integer linkedVersion;
 
-    public DroolsForm(ISubmittedForm droolsSubmittedform) {
-        this.droolsSubmittedform = droolsSubmittedform;
-        this.label = droolsSubmittedform.getName();
+    public DroolsForm(ISubmittedForm droolsSubmittedForm) {
+        this.droolsSubmittedForm = droolsSubmittedForm;
+        this.label = droolsSubmittedForm.getName();
     }
 
     public String getLabel() {
@@ -34,11 +34,11 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     }
 
     public ISubmittedForm getDroolsSubmittedForm() {
-        return droolsSubmittedform;
+        return droolsSubmittedForm;
     }
 
     public ISubmittedQuestion getQuestion(String categoryName, String questionName) {
-        return droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName)
+        return droolsSubmittedForm.getChild(ISubmittedCategory.class, categoryName)
                 .getChild(ISubmittedQuestion.class, questionName);
     }
 
@@ -72,7 +72,7 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     }
 
     public void setDroolsSubmittedForm(SubmittedForm droolsSubmittedform) {
-        this.droolsSubmittedform = droolsSubmittedform;
+        this.droolsSubmittedForm = droolsSubmittedform;
     }
 
     @Override
