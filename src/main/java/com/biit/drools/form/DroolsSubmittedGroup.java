@@ -57,10 +57,10 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
 
     @Override
     public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String varName) {
-        final List<T> childs = getChildrenRecursive(type);
+        final List<T> children = getChildrenRecursive(type);
 
-        if (childs != null && !childs.isEmpty()) {
-            return getVariableValue(childs.get(0), varName);
+        if (children != null && !children.isEmpty()) {
+            return getVariableValue(children.get(0), varName);
         }
         return null;
     }
@@ -84,22 +84,23 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
     public String generateXML(String tabs) {
         final StringBuilder xmlFile = new StringBuilder(tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n");
         // Generate variables value
-        xmlFile.append(tabs).append("\t<variables>\n");
+        xmlFile.append(tabs).append(TabHandler.TAB).append("<variables>\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
         if (getVariablesValue() != null) {
             for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-                xmlFile.append(tabs).append("\t\t<").append(child.getKey()).append("><![CDATA[")
+                xmlFile.append(tabs).append(TabHandler.TAB).append(TabHandler.TAB).append("<")
+                        .append(child.getKey()).append("><![CDATA[")
                         .append(child.getValue().toString()).append("]]></").append(child.getKey()).append(">\n");
             }
         }
-        xmlFile.append(tabs).append("\t</variables>\n");
+        xmlFile.append(tabs).append(TabHandler.TAB).append("</variables>\n");
         // Generate children nodes
-        xmlFile.append(tabs).append("\t<children>\n");
+        xmlFile.append(tabs).append(TabHandler.TAB).append("<children>\n");
         for (ISubmittedObject child : getChildren()) {
-            xmlFile.append(((ISubmittedFormElement) child).generateXML(tabs + "    "));
+            xmlFile.append(((ISubmittedFormElement) child).generateXML(tabs + TabHandler.TAB + TabHandler.TAB));
         }
-        xmlFile.append(tabs).append("\t</children>\n");
+        xmlFile.append(tabs).append(TabHandler.TAB).append("</children>\n");
         xmlFile.append(tabs).append("</").append(this.getClass().getSimpleName()).append(">\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "XML Generated for '" + this.getName() + "' is:\n" + xmlFile);

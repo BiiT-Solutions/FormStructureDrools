@@ -166,18 +166,19 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     public String generateXML(String tabs) {
         final StringBuilder xmlFile = new StringBuilder(tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n");
         // Generate variables value
-        xmlFile.append(tabs).append("\t<variables>\n");
+        xmlFile.append(tabs).append(TabHandler.TAB).append("<variables>\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
         if (getVariablesValue() != null) {
             for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-                xmlFile.append(tabs).append("\t\t<").append(child.getKey()).append("><![CDATA[").append(child.getValue().toString())
+                xmlFile.append(tabs).append(TabHandler.TAB).append(TabHandler.TAB).append("<").append(child.getKey())
+                        .append("><![CDATA[").append(child.getValue().toString())
                         .append("]]></").append(child.getKey()).append(">\n");
             }
         }
-        xmlFile.append(tabs).append("\t</variables>\n");
+        xmlFile.append(tabs).append(TabHandler.TAB).append("</variables>\n");
         // Generate answer values
-        xmlFile.append(tabs).append("\t<value>");
+        xmlFile.append(tabs).append(TabHandler.TAB).append("<value>");
         if (getAnswers() != null && !getAnswers().isEmpty()) {
             xmlFile.append("<![CDATA[").append(answersAsString()).append("]]>");
         }
