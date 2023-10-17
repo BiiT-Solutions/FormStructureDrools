@@ -21,6 +21,8 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     private static final long serialVersionUID = -507044452465253286L;
     private ISubmittedForm droolsSubmittedform;
     private final String label;
+    private String linkedLabel;
+    private Integer linkedVersion;
 
     public DroolsForm(ISubmittedForm droolsSubmittedform) {
         this.droolsSubmittedform = droolsSubmittedform;
@@ -38,6 +40,22 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     public ISubmittedQuestion getQuestion(String categoryName, String questionName) {
         return droolsSubmittedform.getChild(ISubmittedCategory.class, categoryName)
                 .getChild(ISubmittedQuestion.class, questionName);
+    }
+
+    public String getLinkedLabel() {
+        return linkedLabel;
+    }
+
+    public void setLinkedLabel(String linkedLabel) {
+        this.linkedLabel = linkedLabel;
+    }
+
+    public Integer getLinkedVersion() {
+        return linkedVersion;
+    }
+
+    public void setLinkedVersion(Integer linkedVersion) {
+        this.linkedVersion = linkedVersion;
     }
 
     @Override
