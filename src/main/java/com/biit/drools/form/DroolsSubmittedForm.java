@@ -172,7 +172,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
         // Generate children nodes
         xmlFile.append("\t<children>\n");
         for (ISubmittedObject child : getChildren()) {
-            xmlFile.append(((ISubmittedFormElement) child).generateXML("\t\t"));
+            xmlFile.append(((ISubmittedFormElement) child).generateXML("    "));
         }
         xmlFile.append("\t</children>\n");
         xmlFile.append("</").append(this.getClass().getSimpleName()).append(">");

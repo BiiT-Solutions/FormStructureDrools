@@ -82,28 +82,28 @@ public class DroolsSubmittedGroup extends SubmittedGroup implements ISubmittedFo
 
     @Override
     public String generateXML(String tabs) {
-        String xmlFile = tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n";
+        final StringBuilder xmlFile = new StringBuilder(tabs + "<" + this.getClass().getSimpleName() + " name=\"" + getTag() + "\"" + ">\n");
         // Generate variables value
-        xmlFile += tabs + "\t<variables>\n";
+        xmlFile.append(tabs).append("\t<variables>\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "Variables values for '" + this.getName() + "' are '" + getVariablesValue() + "'.");
         if (getVariablesValue() != null) {
             for (Entry<String, Object> child : getVariablesValue().entrySet()) {
-                xmlFile += tabs + "\t\t<" + child.getKey() + "><![CDATA[" + child.getValue().toString() + "]]></"
-                        + child.getKey() + ">\n";
+                xmlFile.append(tabs).append("\t\t<").append(child.getKey()).append("><![CDATA[")
+                        .append(child.getValue().toString()).append("]]></").append(child.getKey()).append(">\n");
             }
         }
-        xmlFile += tabs + "\t</variables>\n";
+        xmlFile.append(tabs).append("\t</variables>\n");
         // Generate children nodes
-        xmlFile += tabs + "\t<children>\n";
+        xmlFile.append(tabs).append("\t<children>\n");
         for (ISubmittedObject child : getChildren()) {
-            xmlFile += ((ISubmittedFormElement) child).generateXML(tabs + "\t\t");
+            xmlFile.append(((ISubmittedFormElement) child).generateXML(tabs + "    "));
         }
-        xmlFile += tabs + "\t</children>\n";
-        xmlFile += tabs + "</" + this.getClass().getSimpleName() + ">\n";
+        xmlFile.append(tabs).append("\t</children>\n");
+        xmlFile.append(tabs).append("</").append(this.getClass().getSimpleName()).append(">\n");
         DroolsSubmittedLogger.debug(this.getClass().getName(),
                 "XML Generated for '" + this.getName() + "' is:\n" + xmlFile);
-        return xmlFile;
+        return xmlFile.toString();
     }
 
     @Override
