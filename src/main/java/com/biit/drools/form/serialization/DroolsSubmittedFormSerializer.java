@@ -20,6 +20,8 @@ public class DroolsSubmittedFormSerializer extends SubmittedObjectSerializer<Dro
         }
         if (src.getVersion() != null) {
             jgen.writeNumberField("version", src.getVersion());
+        } else {
+            jgen.writeNumberField("version", 1);
         }
         if (src.getFormVariables() != null) {
             jgen.writeStringField("formVariables", ObjectMapperFactory.getObjectMapper()
