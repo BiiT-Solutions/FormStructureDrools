@@ -33,11 +33,20 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     public Object getAnswer(String answerFormat) {
-        return getAnswer(DroolsQuestionFormat.get(answerFormat));
+        final DroolsQuestionFormat droolsQuestionFormat = DroolsQuestionFormat.get(answerFormat);
+        final Object answer = getAnswer(droolsQuestionFormat);
+        if (answer != null) {
+            return answer;
+        }
+        //Return empty string rather than null. To avoid NPE in drools.
+        return "";
     }
 
     public Object getAnswer(DroolsQuestionFormat answerFormat) {
         if (answerFormat == null) {
+            return null;
+        }
+        if (answerFormat.equals(DroolsQuestionFormat.NULL)) {
             return getSimpleAnswer();
         }
 
@@ -216,8 +225,12 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
 
     private String answersAsString() {
         final StringBuilder text = new StringBuilder();
-        for (String answer : getAnswers()) {
-            text.append(answer).append(" ");
+        if (getAnswers() != null) {
+            for (String answer : getAnswers()) {
+                if (answer != null) {
+                    text.append(answer).append(" ");
+                }
+            }
         }
         return text.toString().trim();
     }
