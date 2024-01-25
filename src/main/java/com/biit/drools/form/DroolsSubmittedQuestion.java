@@ -41,7 +41,6 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
             return getSimpleAnswer();
         }
 
-        final Object parsedValue = null;
         switch (answerFormat) {
             case NUMBER -> {
                 if (getAnswers() != null && !getAnswers().isEmpty()) {
@@ -91,7 +90,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
             default -> {
             }
         }
-        return parsedValue;
+        //Return empty string rather than null. To avoid NPE in drools.
+        return "";
     }
 
     private Object getSimpleAnswer() {
