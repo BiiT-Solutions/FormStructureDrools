@@ -2,25 +2,25 @@ package com.biit.drools.form;
 
 public enum DroolsQuestionFormat {
 
-	NULL,
+    NULL,
 
-	TEXT,
+    TEXT,
 
-	MULTI_TEXT,
+    MULTI_TEXT,
 
-	NUMBER,
+    NUMBER,
 
-	DATE,
+    DATE,
 
-	POSTAL_CODE;
+    POSTAL_CODE;
 
-	public static DroolsQuestionFormat get(String tag) {
-		for (DroolsQuestionFormat format : DroolsQuestionFormat.values()) {
-			if (format.toString().toLowerCase().equals(tag.toLowerCase())) {
-				return format;
-			}
-		}
-		return null;
-	}
+    public static DroolsQuestionFormat get(String tag) {
+        for (DroolsQuestionFormat format : DroolsQuestionFormat.values()) {
+            if (format.name().equalsIgnoreCase(tag)) {
+                return format;
+            }
+        }
+        return null;
+    }
 
 }
