@@ -16,7 +16,7 @@ public enum DroolsQuestionFormat {
 
     public static DroolsQuestionFormat get(String tag) {
         for (DroolsQuestionFormat format : DroolsQuestionFormat.values()) {
-            if (format.toString().equalsIgnoreCase(tag)) {
+            if (format.name().equalsIgnoreCase(tag)) {
                 return format;
             }
         }
