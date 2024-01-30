@@ -87,7 +87,10 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
         if ((formVariables == null) || (formVariables.get(submittedFormObject.getXPath()) == null)) {
             return null;
         }
-        return formVariables.get(submittedFormObject.getXPath()).get(varName);
+        if (formVariables.get(submittedFormObject.getXPath()) != null) {
+            return formVariables.get(submittedFormObject.getXPath()).get(varName);
+        }
+        return null;
     }
 
     @Override
