@@ -79,7 +79,10 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
         if ((formVariables == null) || (formVariables.get(submittedFormObject) == null)) {
             return null;
         }
-        return formVariables.get(submittedFormObject).get(varName);
+        if (formVariables.get(submittedFormObject) != null) {
+            return formVariables.get(submittedFormObject).get(varName);
+        }
+        return null;
     }
 
     @Override
