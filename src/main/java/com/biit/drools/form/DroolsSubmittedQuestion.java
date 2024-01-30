@@ -142,8 +142,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     @Override
-    public Object getVariableValue(Object submmitedFormObject, String varName) {
-        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submmitedFormObject, varName);
+    public Object getVariableValue(Object submittedFormObject, String varName) {
+        return ((ISubmittedFormElement) this.getParent()).getVariableValue(submittedFormObject, varName);
     }
 
     @Override
@@ -152,8 +152,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     @Override
-    public void setVariableValue(Object submmitedFormObject, String varName, Object value) {
-        ((ISubmittedFormElement) getParent()).setVariableValue(submmitedFormObject, varName, value);
+    public void setVariableValue(Object submittedFormObject, String varName, Object value) {
+        ((ISubmittedFormElement) getParent()).setVariableValue(submittedFormObject, varName, value);
     }
 
     @Override
@@ -198,8 +198,8 @@ public class DroolsSubmittedQuestion extends SubmittedQuestion implements ISubmi
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue(Object submmitedFormObject) {
-        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submmitedFormObject);
+    public HashMap<String, Object> getVariablesValue(Object submittedFormObject) {
+        return ((ISubmittedFormElement) this.getParent()).getVariablesValue(submittedFormObject);
     }
 
     @Override
