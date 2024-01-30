@@ -80,7 +80,11 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
             return null;
         }
         if (formVariables.get(submittedFormObject) != null) {
-            return formVariables.get(submittedFormObject).get(varName);
+            Object value = formVariables.get(submittedFormObject).get(varName);
+            if (value instanceof Character) {
+                return String.valueOf(value);
+            }
+            return value;
         }
         return null;
     }
