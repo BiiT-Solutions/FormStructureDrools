@@ -1,4 +1,4 @@
-package com.biit.drools.form;
+package com.biit.drools.variables;
 
 /**
  * Class for storing ABCD Custom Variables values.
