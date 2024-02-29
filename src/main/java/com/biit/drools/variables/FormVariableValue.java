@@ -3,7 +3,7 @@ package com.biit.drools.variables;
 /**
  * Class for storing ABCD Custom Variables values.
  */
-public class VariableValue {
+public class FormVariableValue {
 
     //TreeObject name or comparationId;
     private String reference;
@@ -14,7 +14,7 @@ public class VariableValue {
     //Value of the variable
     private Object value;
 
-    public VariableValue(String reference, String variable, Object value) {
+    public FormVariableValue(String reference, String variable, Object value) {
         this.reference = reference;
         this.variable = variable;
         this.value = value;
