@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -24,10 +25,11 @@ import java.util.stream.Collectors;
 @JsonDeserialize(using = DroolsSubmittedFormDeserializer.class)
 @JsonSerialize(using = DroolsSubmittedFormSerializer.class)
 public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement, Serializable {
+    @Serial
+    private static final long serialVersionUID = -1289388087219471449L;
+
     // TreeObject -> VarName --> Value
     private Map<String, Map<String, Object>> formVariables;
-
-    private static final long serialVersionUID = -1289388087219471449L;
 
     public DroolsSubmittedForm() {
         super("", "");
@@ -55,17 +57,16 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
     @Override
     public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String varName) {
-        final List<T> childs = getChildrenRecursive(type);
-
-        if (childs != null && !childs.isEmpty()) {
-            return getVariableValue(childs.get(0), varName);
+        final List<T> children = getChildrenRecursive(type);
+        if (children != null && !children.isEmpty()) {
+            return getVariableValue(children.get(0), varName);
         }
         return null;
     }
 
     @Override
     public <T extends ISubmittedObject> Object getVariableValue(Class<T> type, String treeObjectName, String varName) {
-        ISubmittedObject selectedObject = null;
+        final ISubmittedObject selectedObject;
         // Check this element.
         if (type.isInstance(this)) {
             if (this.getTag().equals(treeObjectName)) {
@@ -195,7 +196,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
             return null;
         }
         DroolsSubmittedLogger.debug(this.getClass().getName(), "Form variables for '" + submittedFormTreeObject
-                + "' are '" + formVariables.get(submittedFormTreeObject) + "'.");
+                + "' are '" + formVariables.get(submittedFormTreeObject.getXPath()) + "'.");
         return formVariables.get(submittedFormTreeObject.getXPath());
     }
 
