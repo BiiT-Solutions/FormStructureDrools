@@ -8,6 +8,7 @@ import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.form.submitted.implementation.SubmittedForm;
 import com.biit.form.submitted.implementation.SubmittedObject;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,14 @@ import java.util.List;
  * droolsSubmittedform to manage variables.<br>
  */
 public class DroolsForm implements ISubmittedForm, Serializable {
+    @Serial
     private static final long serialVersionUID = -507044452465253286L;
     private ISubmittedForm droolsSubmittedForm;
     private final String label;
     private String linkedLabel;
     private Integer linkedVersion;
+
+    private String submittedBy;
 
     public DroolsForm(ISubmittedForm droolsSubmittedForm) {
         this.droolsSubmittedForm = droolsSubmittedForm;
@@ -197,4 +201,12 @@ public class DroolsForm implements ISubmittedForm, Serializable {
         return null;
     }
 
+    @Override
+    public String getSubmittedBy() {
+        return submittedBy;
+    }
+
+    public void setSubmittedBy(String submittedBy) {
+        this.submittedBy = submittedBy;
+    }
 }
