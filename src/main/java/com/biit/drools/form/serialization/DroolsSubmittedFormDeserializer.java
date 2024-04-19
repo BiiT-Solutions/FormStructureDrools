@@ -19,6 +19,7 @@ public class DroolsSubmittedFormDeserializer extends SubmittedObjectDeserializer
         element.setVersion(parseInteger("version", jsonObject));
         element.setName(parseString("name", jsonObject));
         element.setTag(parseString("tag", jsonObject));
+        element.setSubmittedBy(parseString("submittedBy", jsonObject));
         if (jsonObject.get("formVariables") != null) {
             element.setFormVariables(ObjectMapperFactory.getObjectMapper().readValue(jsonObject.get("formVariables").textValue(), new TypeReference<>() {
             }));
