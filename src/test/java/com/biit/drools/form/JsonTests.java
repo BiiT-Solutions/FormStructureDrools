@@ -19,7 +19,7 @@ public class JsonTests {
     private final static String APPLICATION_NAME = "Test";
     private final static String FORM_NAME = "TheForm";
     private final static Integer FORM_VERSION = 3;
-    private final static Long FORM_ORGANIZATION = 23L;
+    private final static String FORM_ORGANIZATION = "The Organization";
 
 
     private DroolsSubmittedForm droolsSubmittedForm;
@@ -60,7 +60,7 @@ public class JsonTests {
         droolsSubmittedForm.setApplicationName(APPLICATION_NAME);
         droolsSubmittedForm.setTag(FORM_NAME);
         droolsSubmittedForm.setVersion(FORM_VERSION);
-        droolsSubmittedForm.setOrganizationId(FORM_ORGANIZATION);
+        droolsSubmittedForm.setOrganization(FORM_ORGANIZATION);
 
         DroolsSubmittedCategory category = new DroolsSubmittedCategory("The Category");
         droolsSubmittedForm.addChild(category);

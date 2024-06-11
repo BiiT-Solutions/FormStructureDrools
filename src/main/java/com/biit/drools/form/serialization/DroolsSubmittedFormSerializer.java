@@ -15,8 +15,8 @@ public class DroolsSubmittedFormSerializer extends SubmittedObjectSerializer<Dro
         if (src.getApplicationName() != null) {
             jgen.writeStringField("applicationName", src.getApplicationName());
         }
-        if (src.getOrganizationId() != null) {
-            jgen.writeNumberField("organizationId", src.getOrganizationId());
+        if (src.getOrganization() != null) {
+            jgen.writeStringField("organization", src.getOrganization());
         }
         if (src.getSubmittedBy() != null) {
             jgen.writeStringField("submittedBy", src.getSubmittedBy());

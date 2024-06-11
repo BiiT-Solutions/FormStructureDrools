@@ -15,7 +15,7 @@ public class DroolsSubmittedFormDeserializer extends SubmittedObjectDeserializer
     public void deserialize(DroolsSubmittedForm element, JsonNode jsonObject, DeserializationContext context) throws IOException {
         super.deserialize(element, jsonObject, context);
         element.setApplicationName(parseString("applicationName", jsonObject));
-        element.setOrganizationId(parseLong("organizationId", jsonObject));
+        element.setOrganization(parseString("organization", jsonObject));
         element.setVersion(parseInteger("version", jsonObject));
         element.setName(parseString("name", jsonObject));
         element.setTag(parseString("tag", jsonObject));

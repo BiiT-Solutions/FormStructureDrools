@@ -15,7 +15,7 @@
     } ]
   } ],
   "applicationName" : "Test",
-  "organizationId" : 23,
+  "organization" : "The Organization",
   "version" : 3,
   "formVariables" : "{\n  \"/DroolsSubmittedForm[@label='TheForm']/children/DroolsSubmittedCategory[@name='The Category']/children/DroolsSubmittedQuestion[@name='The Question']\" : {\n    \"var2\" : \"asd\",\n    \"var1\" : 5\n  }\n}"
 }
