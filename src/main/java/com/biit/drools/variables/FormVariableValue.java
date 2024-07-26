@@ -1,5 +1,7 @@
 package com.biit.drools.variables;
 
+import com.biit.drools.log.DroolsSubmittedLogger;
+
 /**
  * Class for storing ABCD Custom Variables values.
  */
@@ -41,6 +43,7 @@ public class FormVariableValue {
     }
 
     public void setValue(Object value) {
+        DroolsSubmittedLogger.debug(this.getClass().getName(), "Changing form variable '{}' from '{}' to '{}'.", variable, this.value, value);
         this.value = value;
     }
 }
