@@ -10,6 +10,7 @@ import com.biit.form.submitted.implementation.SubmittedObject;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     private Integer linkedVersion;
 
     private String submittedBy;
+    private LocalDateTime submittedAt;
 
     public DroolsForm(ISubmittedForm droolsSubmittedForm) {
         this.droolsSubmittedForm = droolsSubmittedForm;
@@ -208,5 +210,13 @@ public class DroolsForm implements ISubmittedForm, Serializable {
 
     public void setSubmittedBy(String submittedBy) {
         this.submittedBy = submittedBy;
+    }
+
+    public LocalDateTime getSubmittedAt() {
+        return submittedAt;
+    }
+
+    public void setSubmittedAt(LocalDateTime submittedAt) {
+        this.submittedAt = submittedAt;
     }
 }
