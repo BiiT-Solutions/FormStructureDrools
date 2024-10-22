@@ -1,6 +1,7 @@
 package com.biit.drools.form.serialization;
 
 import com.biit.drools.form.DroolsSubmittedForm;
+import com.biit.form.jackson.serialization.BaseStorableObjectDeserializer;
 import com.biit.form.jackson.serialization.ObjectMapperFactory;
 import com.biit.form.submitted.serialization.jackson.SubmittedObjectSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -20,6 +21,9 @@ public class DroolsSubmittedFormSerializer extends SubmittedObjectSerializer<Dro
         }
         if (src.getSubmittedBy() != null) {
             jgen.writeStringField("submittedBy", src.getSubmittedBy());
+        }
+        if (src.getSubmittedAt() != null) {
+            jgen.writeStringField("submittedAt", src.getSubmittedAt().format(BaseStorableObjectDeserializer.TIMESTAMP_FORMATTER));
         }
         if (src.getVersion() != null) {
             jgen.writeNumberField("version", src.getVersion());
