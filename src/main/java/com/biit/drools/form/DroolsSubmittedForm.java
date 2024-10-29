@@ -10,6 +10,7 @@ import com.biit.form.submitted.ISubmittedFormElement;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.form.submitted.implementation.SubmittedForm;
+import com.biit.form.submitted.implementation.SubmittedObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -203,6 +204,15 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     @Override
     public Map<String, Object> getVariablesValue() {
         return getVariablesValue(this);
+    }
+
+    public Map<String, Object> getAllVariablesValue() {
+        final Map<String, Object> variables = new HashMap<>(getVariablesValue(this));
+        for (SubmittedObject children : this.getAllChildrenInHierarchy()) {
+            final Map<String, Object> variablesFromElement = getVariablesValue(children);
+            variablesFromElement.forEach((k, v) -> variables.put(children.getPathName() + "/" + k, v));
+        }
+        return variables;
     }
 
     @Override
