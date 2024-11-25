@@ -206,11 +206,14 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
         return getVariablesValue(this);
     }
 
+
     public Map<String, Object> getAllVariablesValue() {
         final Map<String, Object> variables = new HashMap<>(getVariablesValue(this));
         for (SubmittedObject children : this.getAllChildrenInHierarchy()) {
             final Map<String, Object> variablesFromElement = getVariablesValue(children);
-            variablesFromElement.forEach((k, v) -> variables.put(children.getPathName() + "/" + k, v));
+            if (variablesFromElement != null) {
+                variablesFromElement.forEach((k, v) -> variables.put(children.getPathName() + "/" + k, v));
+            }
         }
         return variables;
     }
