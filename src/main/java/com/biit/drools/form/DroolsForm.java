@@ -23,7 +23,7 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     @Serial
     private static final long serialVersionUID = -507044452465253286L;
     private ISubmittedForm droolsSubmittedForm;
-    private final String label;
+    private String label;
     private String linkedLabel;
     private Integer linkedVersion;
 
@@ -33,6 +33,10 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     public DroolsForm(ISubmittedForm droolsSubmittedForm) {
         this.droolsSubmittedForm = droolsSubmittedForm;
         this.label = droolsSubmittedForm.getName();
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getLabel() {
