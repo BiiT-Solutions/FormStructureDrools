@@ -83,6 +83,7 @@ public final class DroolsFormProvider {
         final DroolsSubmittedForm droolsForm = new DroolsSubmittedForm("", submittedForm.getTag());
         createSubmittedFromStructure(submittedForm, droolsForm);
         droolsForm.setSubmittedBy(submittedForm.getSubmittedBy());
+        droolsForm.setSubmittedAt(submittedForm.getSubmittedAt());
         return new DroolsForm(droolsForm);
     }
 

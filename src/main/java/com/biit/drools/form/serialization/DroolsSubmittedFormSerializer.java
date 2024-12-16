@@ -7,8 +7,12 @@ import com.biit.form.submitted.serialization.jackson.SubmittedObjectSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
+import java.io.Serial;
 
 public class DroolsSubmittedFormSerializer extends SubmittedObjectSerializer<DroolsSubmittedForm> {
+
+    @Serial
+    private static final long serialVersionUID = 6988672712296424814L;
 
     @Override
     public void serialize(DroolsSubmittedForm src, JsonGenerator jgen) throws IOException {

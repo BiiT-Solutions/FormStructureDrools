@@ -5,8 +5,12 @@ import com.biit.form.submitted.serialization.jackson.SubmittedObjectSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import java.io.IOException;
+import java.io.Serial;
 
 public class DroolsSubmittedGroupSerializer extends SubmittedObjectSerializer<DroolsSubmittedGroup> {
+
+    @Serial
+    private static final long serialVersionUID = 2527241920889459863L;
 
     @Override
     public void serialize(DroolsSubmittedGroup src, JsonGenerator jgen) throws IOException {
