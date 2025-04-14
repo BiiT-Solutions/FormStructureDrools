@@ -5,6 +5,7 @@ import com.biit.drools.form.DroolsSubmittedCategory;
 import com.biit.drools.form.DroolsSubmittedForm;
 import com.biit.drools.form.DroolsSubmittedGroup;
 import com.biit.drools.form.DroolsSubmittedQuestion;
+import com.biit.drools.form.DroolsSubmittedSystemField;
 import com.biit.form.entity.BaseCategory;
 import com.biit.form.entity.BaseForm;
 import com.biit.form.entity.BaseGroup;
@@ -17,6 +18,7 @@ import com.biit.form.submitted.implementation.SubmittedForm;
 import com.biit.form.submitted.implementation.SubmittedGroup;
 import com.biit.form.submitted.implementation.SubmittedObject;
 import com.biit.form.submitted.implementation.SubmittedQuestion;
+import com.biit.form.submitted.implementation.SubmittedSystemField;
 
 import java.util.List;
 import java.util.Set;
@@ -61,22 +63,28 @@ public final class DroolsFormProvider {
         }
     }
 
-    private static SubmittedObject createCategory(SubmittedObject parent, String tag) {
+    private static SubmittedCategory createCategory(SubmittedObject parent, String tag) {
         final SubmittedCategory category = new DroolsSubmittedCategory(tag);
         parent.addChild(category);
         return category;
     }
 
-    private static SubmittedObject createGroup(SubmittedObject parent, String tag) {
+    private static SubmittedGroup createGroup(SubmittedObject parent, String tag) {
         final SubmittedGroup group = new DroolsSubmittedGroup(tag);
         parent.addChild(group);
         return group;
     }
 
-    private static SubmittedObject createQuestion(SubmittedObject parent, String tag) {
+    private static SubmittedQuestion createQuestion(SubmittedObject parent, String tag) {
         final SubmittedQuestion question = new DroolsSubmittedQuestion(tag);
         parent.addChild(question);
         return question;
+    }
+
+    private static SubmittedSystemField createSystemField(SubmittedObject parent, String tag) {
+        final SubmittedSystemField systemField = new DroolsSubmittedSystemField(tag);
+        parent.addChild(systemField);
+        return systemField;
     }
 
     public static DroolsForm createStructure(SubmittedForm submittedForm) {
@@ -98,9 +106,12 @@ public final class DroolsFormProvider {
             } else if (child instanceof DroolsSubmittedQuestion) {
                 final Set<String> answers = ((DroolsSubmittedQuestion) child).getAnswers();
                 answers.forEach(answer -> {
-                    final ISubmittedQuestion question = (ISubmittedQuestion) createQuestion(parent, child.getTag());
+                    final ISubmittedQuestion question = createQuestion(parent, child.getTag());
                     question.addAnswer(answer);
                 });
+            } else if (child instanceof DroolsSubmittedSystemField submittedSystemField) {
+                final SubmittedSystemField droolsSystemField = createSystemField(parent, child.getTag());
+                droolsSystemField.setValue(submittedSystemField.getValue());
             }
         }
     }

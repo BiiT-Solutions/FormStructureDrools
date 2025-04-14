@@ -15,6 +15,10 @@ import java.util.Map;
 @JsonSerialize(using = DroolsSubmittedSystemFieldSerializer.class)
 public class DroolsSubmittedSystemField extends SubmittedSystemField implements ISubmittedFormElement {
 
+    public DroolsSubmittedSystemField(String tag) {
+        super(tag);
+    }
+
     public DroolsSubmittedSystemField() {
         super();
     }
