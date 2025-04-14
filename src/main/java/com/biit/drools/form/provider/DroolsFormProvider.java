@@ -103,8 +103,8 @@ public final class DroolsFormProvider {
             } else if (child instanceof DroolsSubmittedGroup) {
                 final SubmittedObject droolsGroup = createGroup(parent, child.getTag());
                 createSubmittedFromStructure(child, droolsGroup);
-            } else if (child instanceof DroolsSubmittedQuestion) {
-                final Set<String> answers = ((DroolsSubmittedQuestion) child).getAnswers();
+            } else if (child instanceof DroolsSubmittedQuestion submittedQuestion) {
+                final Set<String> answers = submittedQuestion.getAnswers();
                 answers.forEach(answer -> {
                     final ISubmittedQuestion question = createQuestion(parent, child.getTag());
                     question.addAnswer(answer);
