@@ -8,9 +8,13 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.util.Set;
 
 public class DroolsSubmittedQuestionDeserializer extends SubmittedObjectDeserializer<DroolsSubmittedQuestion> {
+
+    @Serial
+    private static final long serialVersionUID = 5014614795593797332L;
 
     @Override
     public void deserialize(DroolsSubmittedQuestion element, JsonNode jsonObject, DeserializationContext context) throws IOException {
