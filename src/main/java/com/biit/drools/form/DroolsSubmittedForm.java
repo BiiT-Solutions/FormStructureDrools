@@ -17,10 +17,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(using = DroolsSubmittedFormDeserializer.class)
@@ -28,6 +31,8 @@ import java.util.stream.Collectors;
 public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedFormElement, Serializable {
     @Serial
     private static final long serialVersionUID = -1289388087219471449L;
+
+    private static final String REGEX_ELEMENT = "(?<=@label='|@name=')(.*?)(?='])";
 
     // TreeObject -> VarName --> Value
     private Map<String, Map<String, Object>> formVariables;
@@ -225,5 +230,14 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
 
     public static DroolsSubmittedForm getFromJson(String jsonString) throws JsonProcessingException {
         return ObjectMapperFactory.getObjectMapper().readValue(jsonString, DroolsSubmittedForm.class);
+    }
+
+    public <T extends SubmittedObject> T getElement(String xPath) {
+        final List<String> path = new ArrayList<>(Pattern.compile(REGEX_ELEMENT).matcher(xPath).results().map(MatchResult::group).toList());
+        //Remove form.
+        if (path.size() > 1) {
+            path.remove(0);
+        }
+        return (T) getChild(path);
     }
 }
