@@ -1,13 +1,36 @@
 package com.biit.drools.form;
 
+/*-
+ * #%L
+ * Form Structure Drools Engine
+ * %%
+ * Copyright (C) 2015 - 2025 BiiT Sourcing Solutions S.L.
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * #L%
+ */
+
 import com.biit.form.entity.IQuestionWithAnswers;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
 import com.biit.form.submitted.ISubmittedObject;
 import com.biit.form.submitted.ISubmittedQuestion;
 import com.biit.form.submitted.implementation.SubmittedForm;
+import com.biit.form.submitted.implementation.SubmittedObject;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +43,9 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     private static final long serialVersionUID = -507044452465253286L;
     private ISubmittedForm droolsSubmittedform;
     private final String label;
+
+    private String submittedBy;
+    private LocalDateTime submittedAt;
 
     public DroolsForm(ISubmittedForm droolsSubmittedform) {
         this.droolsSubmittedform = droolsSubmittedform;
@@ -82,22 +108,22 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     }
 
     @Override
-    public void setParent(ISubmittedObject parent) {
+    public void setParent(SubmittedObject parent) {
         getDroolsSubmittedForm().setParent(parent);
     }
 
     @Override
-    public void addChild(ISubmittedObject child) {
+    public void addChild(SubmittedObject child) {
         getDroolsSubmittedForm().addChild(child);
     }
 
     @Override
-    public List<ISubmittedObject> getChildren() {
+    public List<SubmittedObject> getChildren() {
         return getDroolsSubmittedForm().getChildren();
     }
 
     @Override
-    public void setChildren(List<ISubmittedObject> children) {
+    public void setChildren(List<SubmittedObject> children) {
         getDroolsSubmittedForm().setChildren(children);
     }
 
@@ -176,6 +202,24 @@ public class DroolsForm implements ISubmittedForm, Serializable {
     public SubmittedForm fromJson(String jsonString) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public String getSubmittedBy() {
+        return submittedBy;
+    }
+
+    public void setSubmittedBy(String submittedBy) {
+        this.submittedBy = submittedBy;
+    }
+
+    @Override
+    public LocalDateTime getSubmittedAt() {
+        return submittedAt;
+    }
+
+    public void setSubmittedAt(LocalDateTime submittedAt) {
+        this.submittedAt = submittedAt;
     }
 
 }

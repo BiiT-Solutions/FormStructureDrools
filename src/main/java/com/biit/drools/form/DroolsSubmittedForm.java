@@ -1,5 +1,26 @@
 package com.biit.drools.form;
 
+/*-
+ * #%L
+ * Form Structure Drools Engine
+ * %%
+ * Copyright (C) 2015 - 2025 BiiT Sourcing Solutions S.L.
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * #L%
+ */
+
 import com.biit.drools.log.DroolsSubmittedLogger;
 import com.biit.form.submitted.ISubmittedCategory;
 import com.biit.form.submitted.ISubmittedForm;
@@ -75,7 +96,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     }
 
     @Override
-    public Object getVariableValue(Object submittedFormObject, String varName) {
+    public Object getVariableValue(ISubmittedObject submittedFormObject, String varName) {
         if ((formVariables == null) || (formVariables.get(submittedFormObject) == null)) {
             return null;
         }
@@ -101,13 +122,13 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     }
 
     @Override
-    public boolean isVariableDefined(Object submittedFormTreeObject, String varName) {
+    public boolean isVariableDefined(ISubmittedObject submittedFormTreeObject, String varName) {
         return !((formVariables == null) || (formVariables.get(submittedFormTreeObject) == null)
                 || (formVariables.get(submittedFormTreeObject).get(varName) == null));
     }
 
     @Override
-    public void setVariableValue(Object submittedFormTreeObject, String varName, Object value) {
+    public void setVariableValue(ISubmittedObject submittedFormTreeObject, String varName, Object value) {
         if (value != null) {
             DroolsSubmittedLogger.debug(this.getClass().getName(), "Setting variable '" + varName + "' with value '"
                     + value + "' for '" + submittedFormTreeObject + "'.");
@@ -183,7 +204,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue(Object submittedFormTreeObject) {
+    public Map<String, Object> getVariablesValue(ISubmittedObject submittedFormTreeObject) {
         if (formVariables == null) {
             return null;
         }
@@ -193,7 +214,7 @@ public class DroolsSubmittedForm extends SubmittedForm implements ISubmittedForm
     }
 
     @Override
-    public HashMap<String, Object> getVariablesValue() {
+    public Map<String, Object> getVariablesValue() {
         return getVariablesValue(this);
     }
 
