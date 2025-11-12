@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.biit-solutions</groupId>
 	<artifactId>form-structure-drools</artifactId>
-	<version>1.0.71-SNAPSHOT</version>
+	<version>1.0.71</version>
 	<packaging>jar</packaging>
 	<name>Form Structure Drools Engine</name>
 	<description>Basic Structure for use with BiiT Drools Form Rules</description>
@@ -46,7 +46,7 @@
 		<connection>scm:git:ssh://git@github.com/BiiT-Solutions/FormStructureDrools.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/BiiT-Solutions/FormStructureDrools.git</developerConnection>
 		<url>https://github.com/BiiT-Solutions/FormStructureDrools.git</url>
-		<tag>form-structure-drools</tag>
+		<tag>form-structure-drools-1.0.71</tag>
 	</scm>
 
 	<dependencies>
